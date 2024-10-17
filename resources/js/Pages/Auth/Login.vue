@@ -38,7 +38,7 @@ const submit = () => {
                 <h1 class="text-3xl font-bold">
                     Login
                 </h1>
-                <p class="text-balance text-muted-foreground">
+                <p class="text-balance text-muted-foreground text-pretty">
                     Entre com seu e-mail e senha para acessar sua conta
                 </p>
             </div>

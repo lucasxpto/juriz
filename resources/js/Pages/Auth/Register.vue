@@ -34,7 +34,7 @@ const submit = () => {
                 <h1 class="text-3xl font-bold">
                     Criar conta
                 </h1>
-                <p class="text-balance text-muted-foreground">
+                <p class="text-balance text-muted-foreground text-pretty">
                     Preencha os campos abaixo para criar sua conta
                 </p>
             </div>
