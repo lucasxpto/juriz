@@ -104,9 +104,14 @@ const submit = () => {
                     >
                         Entrar
                     </Button>
-
                 </div>
             </form>
+            <div class="mt-4 text-center text-sm">
+                Não tem uma conta?
+                <Link :href="route('register')" class="underline">
+                    Registre-se
+                </Link>
+            </div>
         </div>
     </GuestLayout>
 </template>
