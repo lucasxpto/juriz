@@ -19,7 +19,8 @@ defineProps({
 const user = usePage().props.auth.user;
 
 const form = useForm({
-    name: user.name,
+    first_name: user.first_name,
+    last_name: user.last_name,
     email: user.email,
 });
 </script>
@@ -40,18 +41,18 @@ const form = useForm({
             @submit.prevent="form.patch(route('profile.update'))"
             class="mt-6 space-y-6"
         >
-            <div>
-                <Label for="name">Nome</Label>
-                <Input
-                    class="mt-1"
-                    id="name"
-                    type="text"
-                    v-model="form.name"
-                    autofocus
-                    autocomplete="name"
-                    required
-                />
-                <InputError class="mt-2" :message="form.errors.name"/>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="grid gap-2">
+                    <Label for="first-name">Nome</Label>
+                    <Input id="first-name" v-model="form.first_name" required autofocus />
+                    <InputError class="mt-2" :message="form.errors.first_name"/>
+                </div>
+                <div class="grid gap-2">
+                    <Label for="last-name">Sobrenome</Label>
+                    <Input id="last-name" v-model="form.last_name" required />
+                    <InputError class="mt-2" :message="form.errors.last_name"/>
+                </div>
             </div>
 
             <div>
