@@ -1,5 +1,5 @@
 <script setup>
-
+import { Link } from '@inertiajs/vue3';
 import {
     LayoutDashboard,
     Scale,
@@ -16,18 +16,18 @@ import {Badge} from '@/shadcn/ui/badge'
     <aside class="fixed inset-y-0 left-0 z-10 hidden w-60 flex-col border-r bg-background sm:flex">
         <nav class="grid items-start px-2 text-sm font-medium lg:px-4">
             <div class="flex items-center px-3 h-16 mt-1 mb-3">
-                <a href="/" class="flex items-center gap-2 font-semibold">
+                <Link :href="route('dashboard')" class="flex items-center gap-2 font-semibold">
                     <Brain class="h-6 w-6"/>
                     <span class="">Juriz</span>
-                </a>
+                </Link>
             </div>
-            <a
-                href="/"
+            <Link
+                :href="route('dashboard')"
                 class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
             >
                 <LayoutDashboard class="h-4 w-4"/>
                 Dashboard
-            </a>
+            </Link>
             <a
                 href="#"
                 class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"

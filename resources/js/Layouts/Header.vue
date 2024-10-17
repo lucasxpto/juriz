@@ -2,14 +2,6 @@
 
 import {Link} from '@inertiajs/vue3';
 
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from '@/shadcn/ui/breadcrumb'
 import {Button} from '@/shadcn/ui/button'
 import {
     DropdownMenu,
@@ -19,7 +11,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from '@/shadcn/ui/dropdown-menu'
-import {Input} from '@/shadcn/ui/input'
+
 import {Sheet, SheetContent, SheetTrigger} from '@/shadcn/ui/sheet'
 import {
     LayoutDashboard,
@@ -31,6 +23,7 @@ import {
     PanelLeft,
     CircleUser,
 } from "lucide-vue-next";
+import BreadcrumbLayout from "@/Layouts/BreadcrumbLayout.vue";
 </script>
 
 <template>
@@ -91,57 +84,39 @@ import {
             </SheetContent>
         </Sheet>
 
-            <Breadcrumb class="hidden md:flex items-center w-full">
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink as-child>
-                            <a href="#">Dashboard</a>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator/>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink as-child>
-                            <a href="#">Products</a>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator/>
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>All Products</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+        <BreadcrumbLayout/>
 
-                <div class="w-full flex justify-end items-center">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger as-child>
-                            <Button variant="secondary" size="icon" class="rounded-full">
-                                <CircleUser class="h-5 w-5"/>
-                                <span class="sr-only">Toggle user menu</span>
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>{{ $page.props.auth.user.name }}</DropdownMenuLabel>
-                            <DropdownMenuSeparator/>
-                            <Link :href="route('profile.edit')">
-                                <DropdownMenuItem class="cursor-pointer">
-                                    Perfil
-                                </DropdownMenuItem>
-                            </Link>
-                            <DropdownMenuItem>Suporte</DropdownMenuItem>
-                            <DropdownMenuSeparator/>
+        <div class="w-full flex justify-end items-center">
+            <DropdownMenu>
+                <DropdownMenuTrigger as-child>
+                    <Button variant="secondary" size="icon" class="rounded-full">
+                        <CircleUser class="h-5 w-5"/>
+                        <span class="sr-only">Toggle user menu</span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>{{ $page.props.auth.user.name }}</DropdownMenuLabel>
+                    <DropdownMenuSeparator/>
+                    <Link :href="route('profile.edit')">
+                        <DropdownMenuItem class="cursor-pointer">
+                            Perfil
+                        </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuItem>Suporte</DropdownMenuItem>
+                    <DropdownMenuSeparator/>
 
-                            <Link
-                                class="w-full"
-                                :href="route('logout')"
-                                as="button"
-                                method="post"
-                            >
-                                <DropdownMenuItem class="cursor-pointer">Sair</DropdownMenuItem>
-                            </Link>
+                    <Link
+                        class="w-full"
+                        :href="route('logout')"
+                        as="button"
+                        method="post"
+                    >
+                        <DropdownMenuItem class="cursor-pointer">Sair</DropdownMenuItem>
+                    </Link>
 
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
 
 
     </header>
