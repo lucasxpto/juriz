@@ -42,13 +42,13 @@ const form = useForm({
             class="mt-6 space-y-6"
         >
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-3 gap-4">
                 <div class="grid gap-2">
                     <Label for="first-name">Nome</Label>
                     <Input id="first-name" v-model="form.first_name" required autofocus />
                     <InputError class="mt-2" :message="form.errors.first_name"/>
                 </div>
-                <div class="grid gap-2">
+                <div class="grid gap-2 col-span-2">
                     <Label for="last-name">Sobrenome</Label>
                     <Input id="last-name" v-model="form.last_name" required />
                     <InputError class="mt-2" :message="form.errors.last_name"/>
