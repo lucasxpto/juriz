@@ -95,7 +95,7 @@ import BreadcrumbLayout from "@/Layouts/BreadcrumbLayout.vue";
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>{{ $page.props.auth.user.name }}</DropdownMenuLabel>
+                    <DropdownMenuLabel>{{ $page.props.auth.user.first_name }}</DropdownMenuLabel>
                     <DropdownMenuSeparator/>
                     <Link :href="route('profile.edit')">
                         <DropdownMenuItem class="cursor-pointer">
