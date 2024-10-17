@@ -6,9 +6,9 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import {Head, Link, useForm} from '@inertiajs/vue3';
-import { Button } from '@/shadcn/ui/button'
-import { Input } from '@/shadcn/ui/input'
-import { Label } from '@/shadcn/ui/label'
+import {Button} from '@/shadcn/ui/button'
+import {Input} from '@/shadcn/ui/input'
+import {Label} from '@/shadcn/ui/label'
 
 defineProps({
     canResetPassword: {
@@ -60,7 +60,7 @@ const submit = () => {
                             id="email"
                             type="email"
                             v-model="form.email"
-
+                            required
                             autofocus
                             autocomplete="username"
                         />
@@ -83,7 +83,7 @@ const submit = () => {
                             id="password"
                             type="password"
                             v-model="form.password"
-
+                            required
                             autocomplete="current-password"
                         />
 
