@@ -114,17 +114,6 @@ const form = useForm({
                 <InputError class="mt-2" :message="form.errors.email"/>
             </div>
 
-            <div class="inline-flex items-center space-x-3">
-                <Checkbox id="notificar_email"
-                          v-model:checked="form.notificar_email"/>
-                <label
-                    for="notificar_email"
-                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                    Desejo receber notificações por e-mail
-                </label>
-            </div>
-
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p class="mt-2 text-sm text-gray-800 dark:text-gray-200">
                     Seu endereço de e-mail não foi verificado.
@@ -144,6 +133,17 @@ const form = useForm({
                 >
                     Um novo link de verificação foi enviado para o seu endereço de e-mail.
                 </div>
+            </div>
+
+            <div class="inline-flex items-center space-x-3">
+                <Checkbox id="notificar_email"
+                          v-model:checked="form.notificar_email"/>
+                <label
+                    for="notificar_email"
+                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                    Desejo receber notificações por e-mail
+                </label>
             </div>
 
             <div class="flex items-center gap-4">
