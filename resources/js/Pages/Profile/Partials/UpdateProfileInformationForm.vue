@@ -6,6 +6,15 @@ import {Input} from '@/shadcn/ui/input'
 import {Label} from '@/shadcn/ui/label'
 import {Checkbox} from '@/shadcn/ui/checkbox'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/shadcn/ui/card/index.js";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/shadcn/ui/select'
+import { Ufs } from "@/Pages/Profile/Partials/ufs.js";
 
 defineProps({
     mustVerifyEmail: {
@@ -15,6 +24,8 @@ defineProps({
         type: String,
     },
 });
+
+
 
 const user = usePage().props.auth.user;
 
@@ -41,7 +52,7 @@ const form = useForm({
         </CardHeader>
         <CardContent>
             <form
-                @submit.prevent="form.patch(route('profile.update'))"
+                @submit.prevent="form.patch(route('profile.update'), {preserveScroll: true})"
                 class="mt-2 space-y-6"
             >
 
@@ -63,13 +74,26 @@ const form = useForm({
                         <Input id="numero_oab" v-model="form.numero_oab" required/>
                         <InputError class="mt-2" :message="form.errors.numero_oab"/>
                     </div>
-                    <div class="grid gap-2">
+                    <div class="grid gap-2 col-span-2">
                         <Label for="uf_oab">UF da OAB</Label>
-                        <Input id="uf_oab" v-model="form.uf_oab" required/>
+                        <div>
+                            <Select v-model="form.uf_oab">
+                                <SelectTrigger>
+                                    <SelectValue placeholder="UF" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectItem v-for="uf in Ufs" :key="uf.value" :value="uf.value">
+                                            {{ uf.label }}
+                                        </SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
                         <InputError class="mt-2" :message="form.errors.uf_oab"/>
                     </div>
 
-                    <div class="text-pretty text-xs col-span-full lg:col-span-3 lg:mt-6">
+                    <div class="text-pretty text-[10px] col-span-full lg:col-span-2 lg:mt-6 text-amber-600">
                         O número da OAB deve estar igual ao cadastrado no PJ-e.
                         Exemplo: SP123456 é diferente de 123456.
                     </div>
