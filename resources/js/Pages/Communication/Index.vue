@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from '@inertiajs/vue3'
+import { Head, Link, usePage } from '@inertiajs/vue3'
 import { Button } from '@/shadcn/ui/button'
 import { Checkbox } from '@/shadcn/ui/checkbox'
 import { Input } from '@/shadcn/ui/input'
@@ -24,12 +24,13 @@ import {
 } from '@tanstack/vue-table'
 import {ArrowUpDown, CircleEllipsis, SquareArrowOutUpRight} from 'lucide-vue-next'
 import { h, ref } from 'vue'
-import DropdownAction from './DataTableDropDown.vue'
+import Onboard from "@/Components/Onboard.vue";
 
 const props = defineProps({
     data : Array,
 })
 
+const user = usePage().props.auth.user;
 const data = props.data;
 
 const columns = [
@@ -137,7 +138,11 @@ const breadcrumbs = [
     <Head title="Comunicações"/>
     <AuthenticatedLayout :breadcrumbs="breadcrumbs">
 
-            <div class="w-full">
+        <Onboard />
+
+            <div
+                v-if="user.numero_oab && user.uf_oab && user.telefone"
+                class="w-full">
                 <div class="flex gap-2 items-center py-4">
                     <Input
                         class="max-w-sm"
@@ -176,7 +181,9 @@ const breadcrumbs = [
                                     :colspan="columns.length"
                                     class="h-24 text-center"
                                 >
-                                    Sem resultados
+
+                                        Sem resultados
+
                                 </TableCell>
                             </TableRow>
                         </TableBody>

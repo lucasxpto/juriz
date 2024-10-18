@@ -78,7 +78,7 @@ const form = useForm({
                     <div class="grid gap-2">
                         <Label for="uf_oab">UF da OAB</Label>
                         <div>
-                            <Select v-model="form.uf_oab">
+                            <Select v-model="form.uf_oab" required>
                                 <SelectTrigger>
                                     <SelectValue placeholder="UF" />
                                 </SelectTrigger>

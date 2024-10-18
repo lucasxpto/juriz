@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Pedreira',
             'numero_oab' => '123456',
             'uf_oab' => 'SP',
-            'telefone' => '5569993329317',
+            'telefone' => '69993329317',
             'notificar_email' => true,
             'notificar_whatsapp' => true,
             'email' => 'lucas@example.com',
