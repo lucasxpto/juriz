@@ -29,8 +29,8 @@ import {Badge} from '@/shadcn/ui/badge'
                 <LayoutDashboard class="h-4 w-4"/>
                 Dashboard
             </Link>
-            <a
-                href="#"
+            <Link
+                :href="route('communication.index')"
                 class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
             >
                 <AudioLines class="h-4 w-4"/>
@@ -38,7 +38,7 @@ import {Badge} from '@/shadcn/ui/badge'
                 <Badge class="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
                     6
                 </Badge>
-            </a>
+            </Link>
             <a
                 href="#"
                 class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
