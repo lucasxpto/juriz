@@ -26,7 +26,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Forgot Password"/>
+        <Head title="Esqueceu a Senha"/>
 
         <div class="mx-auto grid w-[350px] gap-6">
             <div class="grid gap-2 text-center">

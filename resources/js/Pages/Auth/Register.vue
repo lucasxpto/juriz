@@ -26,7 +26,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Register"/>
+        <Head title="Criar Conta"/>
 
         <div class="mx-auto grid w-[350px] gap-6">
 
