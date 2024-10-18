@@ -13,7 +13,7 @@ const user = usePage().props.auth.user;
 <template>
 
         <div
-            v-if="!user.numero_oab && !user.uf_oab && !user.telefone"
+            v-if="!user.numero_oab || !user.uf_oab || !user.telefone"
             class="flex flex-1 p-10 items-center justify-center rounded-lg border border-dashed shadow-sm bg-card">
 
             <div class="flex flex-col items-center gap-1 text-center">
