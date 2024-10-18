@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 class Communication extends Model
@@ -49,6 +51,16 @@ class Communication extends Model
         return Attribute::make(
             get: fn(string $value) => Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y'),
         );
+    }
+
+    public function recipients(): HasMany
+    {
+        return $this->hasMany(Recipient::class);
+    }
+
+    public function lawyers(): BelongsToMany
+    {
+        return $this->belongsToMany(Lawyer::class, 'recipient_lawyers');
     }
 
 }
