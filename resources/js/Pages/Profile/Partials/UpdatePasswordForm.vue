@@ -1,12 +1,12 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import {Label} from "@/shadcn/ui/label/index.js";
 import {Input} from "@/shadcn/ui/input/index.js";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/shadcn/ui/card/index.js";
+
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
@@ -36,81 +36,79 @@ const updatePassword = () => {
 </script>
 
 <template>
-    <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Alterar Senha
-            </h2>
 
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+    <Card>
+        <CardHeader>
+            <CardTitle>Alterar Senha</CardTitle>
+            <CardDescription>
                 Certifique-se de que sua conta esteja usando uma senha longa e aleatória para se manter segura.
+            </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <form @submit.prevent="updatePassword" class="space-y-6">
+                <div>
+                    <Label for="current_password">Senha Atual</Label>
+                    <Input
+                        class="mt-1"
+                        id="current_password"
+                        type="password"
+                        v-model="form.current_password"
+                        required
+                    />
 
-            </p>
-        </header>
+                    <InputError
+                        :message="form.errors.current_password"
+                        class="mt-2"
+                    />
+                </div>
 
-        <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
-            <div>
-                <Label for="current_password">Senha Atual</Label>
-                <Input
-                    class="mt-1"
-                    id="current_password"
-                    type="password"
-                    v-model="form.current_password"
-                    required
-                />
+                <div>
+                    <Label for="password">Nova Senha</Label>
+                    <Input
+                        class="mt-1"
+                        id="password"
+                        type="password"
+                        v-model="form.password"
+                        required
+                    />
 
-                <InputError
-                    :message="form.errors.current_password"
-                    class="mt-2"
-                />
-            </div>
+                    <InputError :message="form.errors.password" class="mt-2" />
+                </div>
 
-            <div>
-                <Label for="password">Nova Senha</Label>
-                <Input
-                    class="mt-1"
-                    id="password"
-                    type="password"
-                    v-model="form.password"
-                    required
-                />
+                <div>
+                    <Label for="password_confirmation">Repita a Nova Senha</Label>
+                    <Input
+                        class="mt-1"
+                        id="password_confirmation"
+                        type="password"
+                        v-model="form.password_confirmation"
+                        required
+                    />
 
-                <InputError :message="form.errors.password" class="mt-2" />
-            </div>
+                    <InputError
+                        :message="form.errors.password_confirmation"
+                        class="mt-2"
+                    />
+                </div>
 
-            <div>
-                <Label for="password_confirmation">Repita a Nova Senha</Label>
-                <Input
-                    class="mt-1"
-                    id="password_confirmation"
-                    type="password"
-                    v-model="form.password_confirmation"
-                    required
-                />
+                <div class="flex items-center gap-4">
+                    <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
 
-                <InputError
-                    :message="form.errors.password_confirmation"
-                    class="mt-2"
-                />
-            </div>
-
-            <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
-
-                <Transition
-                    enter-active-class="transition ease-in-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out"
-                    leave-to-class="opacity-0"
-                >
-                    <p
-                        v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600 dark:text-gray-400"
+                    <Transition
+                        enter-active-class="transition ease-in-out"
+                        enter-from-class="opacity-0"
+                        leave-active-class="transition ease-in-out"
+                        leave-to-class="opacity-0"
                     >
-                        Salvo.
-                    </p>
-                </Transition>
-            </div>
-        </form>
-    </section>
+                        <p
+                            v-if="form.recentlySuccessful"
+                            class="text-sm text-gray-600 dark:text-gray-400"
+                        >
+                            Salvo.
+                        </p>
+                    </Transition>
+                </div>
+            </form>
+        </CardContent>
+    </Card>
 </template>
