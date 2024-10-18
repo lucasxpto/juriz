@@ -4,8 +4,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { MoreHorizontal } from 'lucide-vue-next'
 
 const props = defineProps({
-    payment: {
-        id: String
+    communication: {
+        id: Number,
     }
 })
 

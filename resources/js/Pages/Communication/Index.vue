@@ -1,15 +1,8 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from '@inertiajs/vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import { Button } from '@/shadcn/ui/button'
 import { Checkbox } from '@/shadcn/ui/checkbox'
-
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from '@/shadcn/ui/dropdown-menu'
 import { Input } from '@/shadcn/ui/input'
 import {
     Table,
@@ -29,42 +22,15 @@ import {
     getSortedRowModel,
     useVueTable,
 } from '@tanstack/vue-table'
-import { ArrowUpDown, ChevronDown } from 'lucide-vue-next'
+import {ArrowUpDown, CircleEllipsis, SquareArrowOutUpRight} from 'lucide-vue-next'
 import { h, ref } from 'vue'
 import DropdownAction from './DataTableDropDown.vue'
 
-const data = [
-    {
-        id: 'm5gr84i9',
-        amount: 316,
-        status: 'success',
-        email: 'ken99@yahoo.com',
-    },
-    {
-        id: '3u1reuv4',
-        amount: 242,
-        status: 'success',
-        email: 'Abe45@gmail.com',
-    },
-    {
-        id: 'derv1ws0',
-        amount: 837,
-        status: 'processing',
-        email: 'Monserrat44@gmail.com',
-    },
-    {
-        id: '5kma53ae',
-        amount: 874,
-        status: 'success',
-        email: 'Silas22@gmail.com',
-    },
-    {
-        id: 'bhqecj4p',
-        amount: 721,
-        status: 'failed',
-        email: 'carmella@hotmail.com',
-    },
-]
+const props = defineProps({
+    data : Array,
+})
+
+const data = props.data;
 
 const columns = [
     {
@@ -83,46 +49,48 @@ const columns = [
         enableHiding: false,
     },
     {
-        accessorKey: 'status',
-        header: 'Status',
-        cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('status')),
-    },
-    {
-        accessorKey: 'email',
+        accessorKey: 'numeroprocessocommascara',
         header: ({ column }) => {
             return h(Button, {
                 variant: 'ghost',
                 onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
-            }, () => ['Email', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
+            }, () => ['Nº do Processo', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
         },
-        cell: ({ row }) => h('div', { class: 'lowercase' }, row.getValue('email')),
+        cell: ({ row }) => h('div', row.getValue('numeroprocessocommascara')),
     },
     {
-        accessorKey: 'amount',
-        header: () => h('div', { class: 'text-right' }, 'Amount'),
-        cell: ({ row }) => {
-            const amount = Number.parseFloat(row.getValue('amount'))
-
-            // Format the amount as a dollar amount
-            const formatted = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-            }).format(amount)
-
-            return h('div', { class: 'text-right font-medium' }, formatted)
-        },
+        accessorKey: 'nome_orgao',
+        header: 'ORGÃO',
+        cell: ({ row }) => h('div', row.getValue('nome_orgao')),
+    },
+    {
+        accessorKey: 'tipo_comunicacao',
+        header: 'TIPO',
+        cell: ({ row }) => h('div', row.getValue('tipo_comunicacao')),
+    },
+    {
+        accessorKey: 'link',
+        header: 'TEOR',
+        cell: ({ row }) => h('a', {
+            href: row.getValue('link'),
+            target: '_blank',
+            class: 'text-blue-500 underline' },
+        [
+            h(SquareArrowOutUpRight, {class: 'h-4 w-4'}),
+        ]),
+    },
+    {
+        accessorKey: 'data_disponibilizacao',
+        header: 'DATA',
+        cell: ({ row }) => h('div', row.getValue('data_disponibilizacao')),
     },
     {
         id: 'actions',
         enableHiding: false,
-        cell: ({ row }) => {
-            const payment = row.original
-
-            return h('div', { class: 'relative' }, h(DropdownAction, {
-                payment,
-                onExpand: row.toggleExpanded,
-            }))
-        },
+        cell: ({ row }) => h(Link, {
+            href: route('communication.show', row.original.id),
+            class: 'text-blue-500 underline',
+        }, () => h(CircleEllipsis, { class: 'h-4 w-4' })),
     },
 ]
 
@@ -173,30 +141,10 @@ const breadcrumbs = [
                 <div class="flex gap-2 items-center py-4">
                     <Input
                         class="max-w-sm"
-                        placeholder="Filter emails..."
-                        :model-value="table.getColumn('email')?.getFilterValue()"
-                        @update:model-value=" table.getColumn('email')?.setFilterValue($event)"
+                        placeholder="Filtra por Nº do Processo"
+                        :model-value="table.getColumn('numeroprocessocommascara')?.getFilterValue()"
+                        @update:model-value=" table.getColumn('numeroprocessocommascara')?.setFilterValue($event)"
                     />
-                    <DropdownMenu>
-                        <DropdownMenuTrigger as-child>
-                            <Button variant="outline" class="ml-auto">
-                                Columns <ChevronDown class="ml-2 h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuCheckboxItem
-                                v-for="column in table.getAllColumns().filter((column) => column.getCanHide())"
-                                :key="column.id"
-                                class="capitalize"
-                                :checked="column.getIsVisible()"
-                                @update:checked="(value) => {
-              column.toggleVisibility(!!value)
-            }"
-                            >
-                                {{ column.id }}
-                            </DropdownMenuCheckboxItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
                 </div>
                 <div class="rounded-lg border bg-card shadow-sm">
                     <Table>
@@ -228,7 +176,7 @@ const breadcrumbs = [
                                     :colspan="columns.length"
                                     class="h-24 text-center"
                                 >
-                                    No results.
+                                    Sem resultados
                                 </TableCell>
                             </TableRow>
                         </TableBody>

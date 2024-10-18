@@ -26,5 +26,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'lucas@example.com',
             'password' => 'password',
         ]);
+
+        $this->call([
+            CommunicationSeeder::class,
+        ]);
     }
 }

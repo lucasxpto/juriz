@@ -25,6 +25,9 @@ Route::middleware('auth')->group(function () {
 
     #region
     Route::get('/comunicacoes', \App\Http\Controllers\Communication\IndexController::class)->name('communication.index');
+    Route::get('/comunicacao/{communication}', function (){
+        return 'oi';
+    })->name('communication.show');
     #endregion
 });
 
