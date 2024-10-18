@@ -186,7 +186,7 @@ const breadcrumbs = [
                 <div class="flex items-center justify-end space-x-2 py-4">
                     <div class="flex-1 text-sm text-muted-foreground">
                         {{ table.getFilteredSelectedRowModel().rows.length }} of
-                        {{ table.getFilteredRowModel().rows.length }} row(s) selected.
+                        {{ table.getFilteredRowModel().rows.length }} {{ table.getFilteredRowModel().rows.length > 1 ? 'registros selecionados': 'registro selecionado'}}
                     </div>
                     <div class="space-x-2">
                         <Button
@@ -195,7 +195,7 @@ const breadcrumbs = [
                             :disabled="!table.getCanPreviousPage()"
                             @click="table.previousPage()"
                         >
-                            Previous
+                            Anterior
                         </Button>
                         <Button
                             variant="outline"
@@ -203,7 +203,7 @@ const breadcrumbs = [
                             :disabled="!table.getCanNextPage()"
                             @click="table.nextPage()"
                         >
-                            Next
+                            Próximo
                         </Button>
                     </div>
                 </div>
