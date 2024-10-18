@@ -24,6 +24,14 @@ import {
     CircleUser,
 } from "lucide-vue-next";
 import BreadcrumbLayout from "@/Layouts/BreadcrumbLayout.vue";
+
+const props = defineProps({
+    breadcrumbs: {
+        type: Array,
+        required: true,
+    },
+})
+
 </script>
 
 <template>
@@ -84,7 +92,7 @@ import BreadcrumbLayout from "@/Layouts/BreadcrumbLayout.vue";
             </SheetContent>
         </Sheet>
 
-        <BreadcrumbLayout/>
+        <BreadcrumbLayout :breadcrumbs="breadcrumbs"/>
 
         <div class="w-full flex justify-end items-center">
             <DropdownMenu>

@@ -13,12 +13,18 @@ defineProps({
         type: String,
     },
 });
+
+const breadcrumbs = [
+    { text: 'Dashboard', link: route('dashboard') },
+    { text: 'Profile' },
+];
+
 </script>
 
 <template>
     <Head title="Profile" />
 
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :breadcrumbs="breadcrumbs">
 
                     <UpdateProfileInformationForm
                         :must-verify-email="mustVerifyEmail"
