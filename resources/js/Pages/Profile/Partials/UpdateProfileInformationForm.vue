@@ -5,6 +5,7 @@ import {Link, useForm, usePage} from '@inertiajs/vue3';
 import {Input} from '@/shadcn/ui/input'
 import {Label} from '@/shadcn/ui/label'
 import {Checkbox} from '@/shadcn/ui/checkbox'
+import { vMaska } from "maska/vue"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/shadcn/ui/card/index.js";
 import {
     Select,
@@ -108,6 +109,7 @@ const form = useForm({
                         id="telefone"
                         type="phone"
                         v-model="form.telefone"
+                        v-maska="'(##) #####-####'"
                         required
                     />
                     <InputError class="mt-2" :message="form.errors.telefone"/>
