@@ -1,11 +1,10 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import {Link, useForm, usePage} from '@inertiajs/vue3';
 import {Input} from '@/shadcn/ui/input'
 import {Label} from '@/shadcn/ui/label'
+import {Checkbox} from '@/shadcn/ui/checkbox'
 
 defineProps({
     mustVerifyEmail: {
@@ -21,6 +20,11 @@ const user = usePage().props.auth.user;
 const form = useForm({
     first_name: user.first_name,
     last_name: user.last_name,
+    telefone: user.telefone,
+    numero_oab: user.numero_oab,
+    uf_oab: user.uf_oab,
+    notificar_email: user.notificar_email,
+    notificar_whatsapp: user.notificar_whatsapp,
     email: user.email,
 });
 </script>
@@ -45,14 +49,56 @@ const form = useForm({
             <div class="grid grid-cols-3 gap-4">
                 <div class="grid gap-2">
                     <Label for="first-name">Nome</Label>
-                    <Input id="first-name" v-model="form.first_name" required autofocus />
+                    <Input id="first-name" v-model="form.first_name" required autofocus/>
                     <InputError class="mt-2" :message="form.errors.first_name"/>
                 </div>
                 <div class="grid gap-2 col-span-2">
                     <Label for="last-name">Sobrenome</Label>
-                    <Input id="last-name" v-model="form.last_name" required />
+                    <Input id="last-name" v-model="form.last_name" required/>
                     <InputError class="mt-2" :message="form.errors.last_name"/>
                 </div>
+            </div>
+            <div class="grid grid-cols-5 gap-4">
+                <div class="grid gap-2">
+                    <Label for="numero_oab">Nº da OAB</Label>
+                    <Input id="numero_oab" v-model="form.numero_oab" required/>
+                    <InputError class="mt-2" :message="form.errors.numero_oab"/>
+                </div>
+                <div class="grid gap-2">
+                    <Label for="uf_oab">UF da OAB</Label>
+                    <Input id="uf_oab" v-model="form.uf_oab" required/>
+                    <InputError class="mt-2" :message="form.errors.uf_oab"/>
+                </div>
+
+                <div class="text-pretty text-xs col-span-3 mt-6">
+                    O número da OAB deve estar igual ao cadastrado no PJ-e.
+                    Exemplo: SP123456 é diferente de 123456.
+                </div>
+            </div>
+
+
+
+            <div>
+                <Label for="telefone">Celular</Label>
+                <Input
+                    class="mt-1"
+                    id="telefone"
+                    type="phone"
+                    v-model="form.telefone"
+                    required
+                />
+                <InputError class="mt-2" :message="form.errors.telefone"/>
+            </div>
+
+            <div>
+                <Checkbox id="notificar_whatsapp"
+                          v-model:checked="form.notificar_whatsapp"/>
+                <label
+                    for="notificar_whatsapp"
+                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                    Desejo receber notificações pelo WhatsApp
+                </label>
             </div>
 
             <div>
@@ -66,6 +112,17 @@ const form = useForm({
                     required
                 />
                 <InputError class="mt-2" :message="form.errors.email"/>
+            </div>
+
+            <div class="inline-flex items-center space-x-3">
+                <Checkbox id="notificar_email"
+                          v-model:checked="form.notificar_email"/>
+                <label
+                    for="notificar_email"
+                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                    Desejo receber notificações por e-mail
+                </label>
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">

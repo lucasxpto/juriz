@@ -23,7 +23,8 @@ import {Badge} from '@/shadcn/ui/badge'
             </div>
             <Link
                 :href="route('dashboard')"
-                class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+                :class="route().current('dashboard') ? 'bg-muted text-primary' : 'text-muted-foreground'"
             >
                 <LayoutDashboard class="h-4 w-4"/>
                 Dashboard
@@ -40,7 +41,7 @@ import {Badge} from '@/shadcn/ui/badge'
             </a>
             <a
                 href="#"
-                class="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+                class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
             >
                 <Activity class="h-4 w-4"/>
                 Movimentações

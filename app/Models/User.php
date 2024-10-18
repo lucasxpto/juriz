@@ -20,6 +20,11 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'first_name',
         'last_name',
+        'numero_oab',
+        'uf_oab',
+        'telefone',
+        'notificar_email',
+        'notificar_whatsapp',
         'email',
         'password',
     ];
@@ -44,6 +49,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'notificar_email' => 'boolean',
+            'notificar_whatsapp' => 'boolean',
         ];
     }
 }
