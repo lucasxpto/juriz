@@ -75,7 +75,7 @@ const form = useForm({
                         <Input id="numero_oab" v-model="form.numero_oab" required/>
                         <InputError class="mt-2" :message="form.errors.numero_oab"/>
                     </div>
-                    <div class="grid gap-2 col-span-2">
+                    <div class="grid gap-2">
                         <Label for="uf_oab">UF da OAB</Label>
                         <div>
                             <Select v-model="form.uf_oab">
@@ -94,7 +94,7 @@ const form = useForm({
                         <InputError class="mt-2" :message="form.errors.uf_oab"/>
                     </div>
 
-                    <div class="text-pretty text-[10px] col-span-full lg:col-span-2 lg:mt-6 text-amber-600">
+                    <div class="text-pretty text-[10px] col-span-full lg:col-span-3 lg:mt-6 text-amber-600">
                         O número da OAB deve estar igual ao cadastrado no PJ-e.
                         Exemplo: SP123456 é diferente de 123456.
                     </div>
