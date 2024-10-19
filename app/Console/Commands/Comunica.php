@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\Comunica\Jobs\ComunicaAdvogadosJob;
 use Illuminate\Console\Command;
 
 class Comunica extends Command
@@ -11,7 +12,7 @@ class Comunica extends Command
      *
      * @var string
      */
-    protected $signature = 'app:comunica';
+    protected $signature = 'api:comunica';
 
     /**
      * The console command description.
@@ -23,20 +24,8 @@ class Comunica extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
-
-
-        $queryString = http_build_query([
-            'pagina' => 1,
-            'itensPorPagina' => 10,
-            'numeroOab' => '249650',
-            'ufOab' => 'SP',
-            'dataDisponibilizacao' => '2024-10-18',
-        ]);
-
-        $r = \App\Services\Comunica\Facade\Comunica::getCommunications($queryString);
-
-        dd($r->json());
+        ComunicaAdvogadosJob::dispatch();
     }
 }

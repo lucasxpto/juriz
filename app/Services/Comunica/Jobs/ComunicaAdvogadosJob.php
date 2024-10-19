@@ -24,7 +24,7 @@ class ComunicaAdvogadosJob implements ShouldQueue
     public function handle(): void
     {
         $users = User::all();
-        
+
         foreach ($users as $user) {
             ComunicaSyncJob::dispatch($user);
         }
