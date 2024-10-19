@@ -4,6 +4,7 @@ namespace App\Services\Comunica\Jobs;
 
 use App\Models\Communication;
 use App\Models\User;
+use App\Notifications\ComunicaEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
@@ -44,10 +45,10 @@ class ComunicaJob implements ShouldQueue
 
         AdvogadosJob::dispatch($this->comunicacao['destinatarioadvogados'], $novaComunicacao);
 
-//        if ($novaComunicacao->user->notificar_email && !$novaComunicacao->notificado_email) {
-//            $novaComunicacao->user->notify(new ComunicaEmail($novaComunicacao));
-//            $novaComunicacao->update(['notificado_email' => true]);
-//        }
+        if ($novaComunicacao->user->notificar_email && !$novaComunicacao->notificado_email) {
+            $novaComunicacao->user->notify(new ComunicaEmail($novaComunicacao));
+            $novaComunicacao->update(['notificado_email' => true]);
+        }
 
         if ($novaComunicacao->user->notificar_whatsapp && !$novaComunicacao->notificado_whatsapp) {
             WhatsappJob::dispatch($novaComunicacao->user->telefone, $novaComunicacao);
