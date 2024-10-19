@@ -1,11 +1,9 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Services\Comunica;
 
-use App\Models\User;
-use App\Services\Comunica\Resource\Comunica;
-use App\Services\Comunica\Resource\ComunicacaoEntitie;
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;

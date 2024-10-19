@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Notifications;
 
 use App\Models\Communication;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -35,7 +36,7 @@ class ComunicaEmail extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)->markdown('mail.comunica-email', ['comunicacao' => $this->comunicacao]);
+        return (new MailMessage())->markdown('mail.comunica-email', ['comunicacao' => $this->comunicacao]);
     }
 
     /**

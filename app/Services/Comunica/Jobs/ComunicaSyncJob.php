@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Services\Comunica\Jobs;
 
 use App\Models\User;
@@ -25,10 +27,10 @@ class ComunicaSyncJob implements ShouldQueue
     public function handle(): void
     {
         $queryString = http_build_query([
-            'pagina' => $this->page,
-            'itensPorPagina' => 10,
-            'numeroOab' => $this->user->numero_oab,
-            'ufOab' => $this->user->uf_oab,
+            'pagina'                     => $this->page,
+            'itensPorPagina'             => 10,
+            'numeroOab'                  => $this->user->numero_oab,
+            'ufOab'                      => $this->user->uf_oab,
             'dataDisponibilizacaoInicio' => '2024-10-18',
         ]);
 
@@ -45,6 +47,5 @@ class ComunicaSyncJob implements ShouldQueue
         }
 
         ComunicaSyncJob::dispatch($this->user, $this->page + 1);
-
     }
 }

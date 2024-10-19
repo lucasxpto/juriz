@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -42,15 +44,15 @@ class Communication extends Model
         'notificado_whatsapp',
     ];
 
-    protected $casts =[
+    protected $casts = [
         'data_disponibilizacao' => 'date:Y-m-d',
-        'data_cancelamento' => 'date:Y-m-d',
+        'data_cancelamento'     => 'date:Y-m-d',
     ];
 
     protected function dataDisponibilizacao(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y'),
+            get: fn (string $value) => Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y'),
         );
     }
 
@@ -68,5 +70,4 @@ class Communication extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Services\Comunica\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -37,10 +39,10 @@ class WhatsappJob implements ShouldQueue
 
         $response = Http::withHeaders([
             'globalApikey' => 'yZ42RfLyfxAF2nHHm4Q6m7jam2ilT8pj3BmZpoFfc5Sig74xt8',
-            'apikey' => '2E5F7C17D5E4-4884-8813-A411759A3C23',
+            'apikey'       => '2E5F7C17D5E4-4884-8813-A411759A3C23',
         ])->post('https://evolution-api.perta.io/message/sendText/ReciboOnline', [
             'number' => '55' . preg_replace('/[^0-9]/', '', $this->number),
-            'text' => $texto,
+            'text'   => $texto,
         ]);
 
         if ($response->successful()) {
