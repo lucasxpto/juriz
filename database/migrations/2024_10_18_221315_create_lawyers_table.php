@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('numero_oab');
             $table->string('uf_oab');
             $table->foreignIdFor(Communication::class)->constrained()->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 

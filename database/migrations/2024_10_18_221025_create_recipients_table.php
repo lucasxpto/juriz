@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nome');
             $table->string('polo');
             $table->foreignIdFor(\App\Models\Communication::class)->constrained()->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 

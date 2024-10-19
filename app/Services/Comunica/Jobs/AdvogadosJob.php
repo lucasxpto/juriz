@@ -4,6 +4,7 @@ namespace App\Services\Comunica\Jobs;
 
 use App\Models\Advogado;
 use App\Models\Communication;
+use App\Models\Lawyer;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
@@ -25,14 +26,14 @@ class AdvogadosJob implements ShouldQueue
     public function handle(): void
     {
         foreach ($this->advogados as $advogado) {
-            $novoAdvogado = Advogado::updateOrCreate([
+            $novoAdvogado = Lawyer::updateOrCreate([
                 'numero_oab' => $advogado['advogado']['numero_oab'],
                 'uf_oab' => $advogado['advogado']['uf_oab'],
             ],[
                 'nome' => $advogado['advogado']['nome'],
                 'numero_oab' => $advogado['advogado']['numero_oab'],
                 'uf_oab' => $advogado['advogado']['uf_oab'],
-                'comunicacao_id' => $this->comunicacao->id,
+                'communication_id' => $this->comunicacao->id,
             ]);
             $this->comunicacao->lawyers()->attach($novoAdvogado->id);
         }

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Communication::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Lawyer::class)->constrained()->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 

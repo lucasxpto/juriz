@@ -12,6 +12,8 @@ class RecipientLawyer extends Model
         'lawyer_id',
     ];
 
+    public $timestamps = false;
+
     public function communication(): BelongsTo
     {
         return $this->belongsTo(Communication::class);

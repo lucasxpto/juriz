@@ -14,6 +14,8 @@ class Lawyer extends Model
         'communication_id',
     ];
 
+    public $timestamps = false;
+
     public function communications(): BelongsToMany
     {
         return $this->belongsToMany(Communication::class, 'recipient_lawyers');

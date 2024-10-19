@@ -25,7 +25,6 @@ class DestinatariosJob implements ShouldQueue
     {
         foreach ($this->destinatarios as $destinatario) {
             $this->comunicacao->recipients()->create([
-                'comunicacao_id' => $this->comunicacao->id,
                 'nome' => $destinatario['nome'],
                 'polo' => $destinatario['polo'],
             ]);

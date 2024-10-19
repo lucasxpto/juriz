@@ -13,6 +13,8 @@ class Recipient extends Model
         'communication_id',
     ];
 
+    public $timestamps = false;
+
     public function communication(): BelongsTo
     {
         return $this->belongsTo(Communication::class);

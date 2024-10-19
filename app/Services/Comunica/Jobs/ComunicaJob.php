@@ -2,6 +2,7 @@
 
 namespace App\Services\Comunica\Jobs;
 
+use App\Models\Communication;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -15,7 +16,7 @@ class ComunicaJob implements ShouldQueue
      */
     public function __construct(public array $comunicacao, public User $user)
     {
-        $novaComunicacao = Comunicacao::updateOrCreate(['api_comunicacao_id' => $this->comunicacao['id']], [
+        $novaComunicacao = Communication::updateOrCreate(['api_comunicacao_id' => $this->comunicacao['id']], [
             'user_id' => $this->user->id,
             'data_disponibilizacao' => $this->comunicacao['data_disponibilizacao'],
             'sigla_tribunal' => $this->comunicacao['siglaTribunal'],
