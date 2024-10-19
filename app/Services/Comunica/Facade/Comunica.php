@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see ComunicaService
- * @method static \Illuminate\Http\Client\Response getCommunications()
+ * @method static \Illuminate\Http\Client\Response getCommunications($url)
  */
 class Comunica extends Facade
 {
