@@ -4,7 +4,8 @@ namespace App\Models;
 
  use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+ use Illuminate\Database\Eloquent\Relations\HasMany;
+ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -52,5 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
             'notificar_email' => 'boolean',
             'notificar_whatsapp' => 'boolean',
         ];
+    }
+
+    public function communications(): HasMany
+    {
+        return $this->hasMany(Communication::class);
     }
 }
