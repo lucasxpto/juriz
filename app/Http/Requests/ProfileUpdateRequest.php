@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Requests;
 
 use App\Models\User;
@@ -16,14 +18,14 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'numero_oab' => ['required', 'string', 'max:255'],
-            'uf_oab' => ['required', 'string', 'max:255'],
-            'telefone' => ['required', 'string', 'max:255'],
-            'notificar_email' => ['boolean'],
+            'first_name'         => ['required', 'string', 'max:255'],
+            'last_name'          => ['required', 'string', 'max:255'],
+            'numero_oab'         => ['required', 'string', 'max:255'],
+            'uf_oab'             => ['required', 'string', 'max:255'],
+            'telefone'           => ['required', 'string', 'max:255'],
+            'notificar_email'    => ['boolean'],
             'notificar_whatsapp' => ['boolean'],
-            'email' => [
+            'email'              => [
                 'required',
                 'string',
                 'lowercase',
