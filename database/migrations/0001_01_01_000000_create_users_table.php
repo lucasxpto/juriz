@@ -17,9 +17,9 @@ return new class () extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('numero_oab')->unique();
-            $table->string('uf_oab');
-            $table->string('telefone');
+            $table->string('numero_oab')->unique()->nullable();
+            $table->string('uf_oab')->nullable();
+            $table->string('telefone')->nullable();
             $table->boolean('notificar_email')->default(false);
             $table->boolean('notificar_whatsapp')->default(false);
             $table->string('email')->unique();
