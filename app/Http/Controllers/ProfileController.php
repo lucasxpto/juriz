@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Services\Comunica\Jobs\ComunicaSyncJob;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,6 +39,8 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+
+        ComunicaSyncJob::dispatch($request->user());
 
         return Redirect::route('profile.edit');
     }

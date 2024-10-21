@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Services\Comunica\Jobs;
 
+use App\Events\ComunicaEventJobFailed;
 use App\Models\User;
 use App\Services\Comunica\Facade\Comunica;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -31,7 +32,7 @@ class ComunicaSyncJob implements ShouldQueue
             'itensPorPagina'             => 10,
             'numeroOab'                  => $this->user->numero_oab,
             'ufOab'                      => $this->user->uf_oab,
-            'dataDisponibilizacaoInicio' => '2024-10-18',
+            'dataDisponibilizacaoInicio' => now()->format('Y-m-d'),
         ]);
 
         $response = Comunica::getCommunications($queryString);
@@ -47,5 +48,10 @@ class ComunicaSyncJob implements ShouldQueue
         }
 
         ComunicaSyncJob::dispatch($this->user, $this->page + 1);
+    }
+
+    public function failed(): void
+    {
+        event(new ComunicaEventJobFailed());
     }
 }
