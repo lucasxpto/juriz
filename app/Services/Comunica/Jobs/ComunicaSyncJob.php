@@ -31,7 +31,7 @@ class ComunicaSyncJob implements ShouldQueue
             'itensPorPagina'             => 10,
             'numeroOab'                  => $this->user->numero_oab,
             'ufOab'                      => $this->user->uf_oab,
-            'dataDisponibilizacaoInicio' => '2024-10-18',
+            'dataDisponibilizacaoInicio' => now()->format('Y-m-d'),
         ]);
 
         $response = Comunica::getCommunications($queryString);

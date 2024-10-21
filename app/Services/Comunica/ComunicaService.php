@@ -15,7 +15,7 @@ class ComunicaService
 
     public function __construct()
     {
-        $this->http = Http::baseUrl('https://comunicaapi.pje.jus.br/api/v1');
+        $this->http = Http::baseUrl('https://hcomunicaapi.cnj.jus.br/api/v1')->acceptJson();
     }
 
     /**
