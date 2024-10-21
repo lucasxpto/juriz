@@ -9,4 +9,4 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-Schedule::command('api:comunica')->everyMinute();
+Schedule::command('api:comunica')->everyFourHours();
