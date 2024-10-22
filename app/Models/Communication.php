@@ -47,6 +47,7 @@ class Communication extends Model
     protected $casts = [
         'data_disponibilizacao' => 'date:Y-m-d',
         'data_cancelamento'     => 'date:Y-m-d',
+        'data_envio'            => 'date:Y-m-d',
     ];
 
     protected function dataDisponibilizacao(): Attribute
