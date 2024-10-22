@@ -34,7 +34,7 @@ return new class () extends Migration
             $table->string('status');
             $table->string('motivo_cancelamento')->nullable();
             $table->date('data_cancelamento')->nullable();
-            $table->date('data_envio');
+            $table->string('data_envio');
             $table->string('meiocompleto');
             $table->string('numeroprocessocommascara');
             $table->boolean('notificado_email')->default(false);
