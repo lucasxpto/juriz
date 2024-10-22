@@ -6,10 +6,11 @@ namespace App\Notifications;
 
 use App\Models\Communication;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ComunicaEmail extends Notification
+class ComunicaEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 

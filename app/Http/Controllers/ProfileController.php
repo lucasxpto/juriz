@@ -38,9 +38,11 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        $user = $request->user();
+
         $request->user()->save();
 
-        ComunicaSyncJob::dispatch($request->user());
+        ComunicaSyncJob::dispatch($user);
 
         return Redirect::route('profile.edit');
     }
