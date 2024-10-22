@@ -24,7 +24,7 @@ return new class () extends Migration
             $table->text('texto');
             $table->string('numero_processo');
             $table->string('meio');
-            $table->string('link')->nullable();
+            $table->string('link', 2048)->nullable();
             $table->string('tipo_documento');
             $table->string('nome_classe');
             $table->string('codigo_classe');
