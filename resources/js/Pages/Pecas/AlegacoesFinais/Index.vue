@@ -1,24 +1,54 @@
 <script setup lang="ts">
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Head} from "@inertiajs/vue3";
+import {Head, useForm} from "@inertiajs/vue3";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/shadcn/ui/card';
 import {Label} from "@/shadcn/ui/label";
 import {Input} from '@/shadcn/ui/input';
 import {Textarea} from '@/shadcn/ui/textarea'
 import {Checkbox} from "@/shadcn/ui/checkbox";
 import {Button} from "@/shadcn/ui/button";
+import {CircleX} from "lucide-vue-next";
 
 const breadcrumbs = [
     {text: 'Dashboard', link: route('dashboard')},
     {text: 'Peças Jurídicas'},
 ];
 
+const form = useForm({
+    requerimentos: [
+        {id: 1, value: ''}
+    ],
+    advogados: [
+        {id: 1, nome: '', oab: ''}
+    ]
+});
+
+function submit() {
+
+}
+
+const addRequerimento = () => {
+    form.requerimentos.push({id: form.requerimentos.length + 1, value: ''});
+};
+
+const addAdvogado = () => {
+    form.advogados.push({id: form.advogados.length + 1, nome: '', oab: ''});
+};
+
+const removeRequerimento = (index: number) => {
+    form.requerimentos.splice(index, 1);
+};
+
+const removeAdvogado = (index: number) => {
+    form.advogados.splice(index, 1);
+};
+
 </script>
 <template>
     <Head title="Peças Jurídicas"/>
     <AuthenticatedLayout :breadcrumbs="breadcrumbs">
 
-        <div class="grid grid-cols-1 gap-6 max-w-7xl">
+        <div class="grid grid-cols-1 gap-6 max-w-7xl pb-12">
             <Card>
                 <CardHeader>
                     <CardTitle class="text-sm font-medium text-primary">
@@ -33,7 +63,7 @@ const breadcrumbs = [
             </Card>
 
             <Card>
-                <form>
+                <form @submit.prevent="submit">
                     <CardHeader class="uppercase flex flex-row">
                         <CardTitle class="text-sm font-medium mr-2 text-primary">
                             Qualificação
@@ -236,14 +266,35 @@ const breadcrumbs = [
 
                     </CardContent>
 
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Dos Pedidos e Requerimentos
+                        </CardTitle>
+                    </CardHeader>
+
                     <CardContent>
-                        <div>
-                            <Label for="first-name">Dos Pedidos e Requerimentos</Label>
-                            <Input id="first-name" class="mt-2"/>
-                            <Input id="first-name" class="mt-2"/>
+                        <div v-for="(requerimento, index) in form.requerimentos" :key="requerimento.id" class="mb-3">
+                            <Label :for="`requerimento-${requerimento.id}`">
+                                Pedido/Requerimento {{ index + 1 }}
+                            </Label>
+                            <div class="flex items-center">
+                                <Input id="`requerimento-${requerimento.id}`"
+                                       v-model="requerimento.value"
+                                       class="mt-1"/>
+
+                                <CircleX
+                                    v-if="index > 0"
+                                    @click="removeRequerimento(index)"
+                                    class="text-red-500 ml-4 cursor-pointer"/>
+
+                            </div>
                         </div>
                         <div>
-                            <Button variant="secondary" class="mt-2">Adicionar mais Pedido/Requeimento</Button>
+                            <Button variant="secondary"
+                                    type="button"
+                                    @click="addRequerimento"
+                                    class="mt-2">+ Pedido/Requeimento
+                            </Button>
                         </div>
                     </CardContent>
 
@@ -253,21 +304,31 @@ const breadcrumbs = [
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <Label for="first-name">Nome do Advogado</Label>
-                                <Input id="first-name" required/>
+                        <div v-for="(advogado, index) in form.advogados" key="advogado.id">
+                            <div class="flex items-center">
+                            <div class="grid grid-cols-2 gap-4 mb-3 w-full">
+                                <div>
+                                    <Label :for="`advogado-${advogado.nome}`">Nome do Advogado</Label>
+                                    <Input :id="`advogado-${advogado.nome}`" required/>
+                                </div>
+                                <div>
+                                    <Label :for="`advogado-${advogado.oab}`">Número da OAB</Label>
+                                    <Input :id="`advogado-${advogado.oab}`" required/>
+                                </div>
                             </div>
-                            <div>
-                                <Label for="first-name">Número da OAB</Label>
-                                <Input id="first-name" required/>
+                            <CircleX
+                                v-if="index > 0"
+                                @click="removeAdvogado(index)"
+                                class="text-red-500 ml-4 mt-3 cursor-pointer"/>
                             </div>
                         </div>
 
                         <div>
-                            <Button variant="secondary"  class="mt-2">Adicionar Advogado</Button>
+                            <Button
+                                @click="addAdvogado"
+                                type="button"
+                                variant="secondary" class="mt-2">+ Advogado
+                            </Button>
                         </div>
 
 
