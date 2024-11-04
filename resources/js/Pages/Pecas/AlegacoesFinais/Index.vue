@@ -105,7 +105,7 @@ const removeAdvogado = (index: number) => {
                             Anexe os documentos necessários - PDF
                         </CardDescription>
                     </CardHeader>
-                    <CardContent class="grid grid-cols-5 gap-6">
+                    <CardContent class="grid grid-cols-3 gap-6">
                         <div>
                             <Label for="first-name">+ Inquerito Policial</Label>
                             <Input id="first-name" type="file" class="placeholder:uppercase"/>
@@ -296,7 +296,7 @@ const removeAdvogado = (index: number) => {
                     <CardContent>
                         <div v-for="(requerimento, index) in form.requerimentos" :key="requerimento.id" class="mb-3">
                             <Label :for="`requerimento-${requerimento.id}`">
-                                Pedido/Requerimento {{ index + 1 }}
+                                Pedido/Requerimento {{ index + 1 > 1 ? `(${index + 1})` : '' }}
                             </Label>
                             <div class="flex items-center">
                                 <Input id="`requerimento-${requerimento.id}`"
@@ -329,11 +329,11 @@ const removeAdvogado = (index: number) => {
                             <div class="flex items-center">
                             <div class="grid grid-cols-2 gap-4 mb-3 w-full">
                                 <div>
-                                    <Label :for="`advogado-${advogado.nome}`">Nome do Advogado</Label>
+                                    <Label :for="`advogado-${advogado.nome}`">Nome do Advogado {{ index + 1 > 1 ? `(${index + 1})` : '' }}</Label>
                                     <Input :id="`advogado-${advogado.nome}`" required/>
                                 </div>
                                 <div>
-                                    <Label :for="`advogado-${advogado.oab}`">Número da OAB</Label>
+                                    <Label :for="`advogado-${advogado.oab}`">Número da OAB {{ index + 1 > 1 ? `(${index + 1})` : '' }}</Label>
                                     <Input :id="`advogado-${advogado.oab}`" required/>
                                 </div>
                             </div>
