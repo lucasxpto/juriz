@@ -132,13 +132,34 @@ const removeAdvogado = (index: number) => {
                         </div>
                     </CardContent>
 
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Dinamica dos Fatos
+                        </CardTitle>
+                        <CardDescription>
+                            Descreva a dinâmica dos fatos até a presente fase processual.
+                        </CardDescription>
+                    </CardHeader>
+
                     <CardContent>
                         <div>
-                            <Label for="first-name">Dinamica dos Fatos</Label>
+                            <Label class="hidden" for="first-name">Dinamica dos Fatos</Label>
                             <Textarea/>
                         </div>
+                    </CardContent>
+
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Preliminares de Mérito
+                        </CardTitle>
+                        <CardDescription>
+                            Descreva os argumentos das nulidades de mérito, preferencialmente mencionando a página ou id dos documentos que as evidenciam.
+                        </CardDescription>
+                    </CardHeader>
+
+                    <CardContent>
                         <div>
-                            <Label for="first-name">Preliminares de Mérito</Label>
+                            <Label class="hidden" for="first-name">Preliminares de Mérito</Label>
                             <Textarea/>
                         </div>
                     </CardContent>
