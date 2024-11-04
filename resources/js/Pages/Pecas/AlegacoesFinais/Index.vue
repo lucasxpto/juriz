@@ -7,7 +7,7 @@ import {Input} from '@/shadcn/ui/input';
 import {Textarea} from '@/shadcn/ui/textarea'
 import {Checkbox} from "@/shadcn/ui/checkbox";
 import {Button} from "@/shadcn/ui/button";
-import {CircleX} from "lucide-vue-next";
+import {CircleX, X} from "lucide-vue-next";
 import InputError from "@/Components/InputError.vue";
 
 const breadcrumbs = [
@@ -76,6 +76,20 @@ const removeRequerimento = (index: number) => {
 const removeAdvogado = (index: number) => {
     form.advogados.splice(index, 1);
 };
+
+const resetFileAnexos = (file: string) => {
+    if (file === 'anexo_inquerito') {
+        form.anexo_inquerito = '';
+    } else if (file === 'anexo_denuncia') {
+        form.anexo_denuncia = '';
+    } else if (file === 'anexo_resposta_acusacao') {
+        form.anexo_resposta_acusacao = '';
+    } else if (file === 'anexo_recebimento_denuncia') {
+        form.anexo_recebimento_denuncia = '';
+    } else if (file === 'anexo_alegacoes_finais_mp') {
+        form.anexo_alegacoes_finais_mp = '';
+    }
+}
 
 </script>
 <template>
@@ -150,41 +164,61 @@ const removeAdvogado = (index: number) => {
                     <CardContent class="grid grid-cols-3 gap-6">
                         <div>
                             <Label for="anexo_inquerito">+ Inquerito Policial</Label>
-                            <Input
-                                v-model="form.anexo_inquerito"
-                                id="anexo_inquerito" type="file" class="placeholder:uppercase"/>
+                            <div class="inline-flex items-center gap-2">
+                                <Input
+                                    v-model="form.anexo_inquerito"
+                                    id="anexo_inquerito" type="file" class="placeholder:uppercase"/>
+                                <X v-if="form.anexo_inquerito" class="text-red-500 cursor-pointer"
+                                   @click="resetFileAnexos('anexo_inquerito')"/>
+                            </div>
                             <InputError class="mt-1" :message="form.errors.anexo_inquerito"/>
                         </div>
 
                         <div>
                             <Label for="anexo_denuncia">+ Denúncia</Label>
-                            <Input
-                                v-model="form.anexo_denuncia"
-                                id="anexo_denuncia" type="file" class="placeholder:uppercase"/>
+                            <div class="inline-flex items-center gap-2">
+                                <Input
+                                    v-model="form.anexo_denuncia"
+                                    id="anexo_denuncia" type="file" class="placeholder:uppercase"/>
+                                <X v-if="form.anexo_denuncia" class="text-red-500 cursor-pointer"
+                                   @click="resetFileAnexos('anexo_denuncia')"/>
+                            </div>
                             <InputError class="mt-1" :message="form.errors.anexo_denuncia"/>
                         </div>
 
                         <div>
                             <Label for="anexo_resposta_acusacao">+ Resposta à Acusação</Label>
-                            <Input
-                                v-model="form.anexo_resposta_acusacao"
-                                id="anexo_resposta_acusacao" type="file" class="placeholder:uppercase"/>
+                            <div class="inline-flex items-center gap-2">
+                                <Input
+                                    v-model="form.anexo_resposta_acusacao"
+                                    id="anexo_resposta_acusacao" type="file" class="placeholder:uppercase"/>
+                                <X v-if="form.anexo_resposta_acusacao" class="text-red-500 cursor-pointer"
+                                   @click="resetFileAnexos('anexo_resposta_acusacao')"/>
+                            </div>
                             <InputError class="mt-1" :message="form.errors.anexo_resposta_acusacao"/>
                         </div>
 
                         <div>
                             <Label for="anexo_recebimento_denuncia">+ Recebimento da Denúncia</Label>
-                            <Input
-                                v-model="form.anexo_recebimento_denuncia"
-                                id="anexo_recebimento_denuncia" type="file" class="placeholder:uppercase"/>
+                            <div class="inline-flex items-center gap-2">
+                                <Input
+                                    v-model="form.anexo_recebimento_denuncia"
+                                    id="anexo_recebimento_denuncia" type="file" class="placeholder:uppercase"/>
+                                <X v-if="form.anexo_recebimento_denuncia" class="text-red-500 cursor-pointer"
+                                   @click="resetFileAnexos('anexo_recebimento_denuncia')"/>
+                            </div>
                             <InputError class="mt-1" :message="form.errors.anexo_recebimento_denuncia"/>
                         </div>
 
                         <div>
                             <Label for="anexo_alegacoes_finais_mp">+ Alegações Finais MP</Label>
-                            <Input
-                                v-model="form.anexo_alegacoes_finais_mp"
-                                id="anexo_alegacoes_finais_mp" type="file" class="placeholder:uppercase"/>
+                            <div class="inline-flex items-center gap-2">
+                                <Input
+                                    v-model="form.anexo_alegacoes_finais_mp"
+                                    id="anexo_alegacoes_finais_mp" type="file" class="placeholder:uppercase"/>
+                                <X v-if="form.anexo_alegacoes_finais_mp" class="text-red-500 cursor-pointer"
+                                   @click="resetFileAnexos('anexo_alegacoes_finais_mp')"/>
+                            </div>
                             <InputError class="mt-1" :message="form.errors.anexo_alegacoes_finais_mp"/>
                         </div>
                     </CardContent>
@@ -431,7 +465,8 @@ const removeAdvogado = (index: number) => {
                                     @click="removeAdvogado(index)"
                                     class="text-red-500 ml-4 mt-3 cursor-pointer"/>
                             </div>
-                            <InputError class="mt-1" :message="form.errors.advogados"/></div>
+                            <InputError class="mt-1" :message="form.errors.advogados"/>
+                        </div>
 
                         <div>
                             <Button
