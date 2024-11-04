@@ -14,6 +14,6 @@ class AlegacoesFinaisController extends Controller
 
     public function store(StoreAlegacaoFinalRequest $request)
     {
-        // Store the alegacao final...
+        dd($request->validate());
     }
 }

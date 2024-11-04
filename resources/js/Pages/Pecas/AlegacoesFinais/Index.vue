@@ -8,6 +8,7 @@ import {Textarea} from '@/shadcn/ui/textarea'
 import {Checkbox} from "@/shadcn/ui/checkbox";
 import {Button} from "@/shadcn/ui/button";
 import {CircleX} from "lucide-vue-next";
+import InputError from "@/Components/InputError.vue";
 
 const breadcrumbs = [
     {text: 'Dashboard', link: route('dashboard')},
@@ -15,6 +16,31 @@ const breadcrumbs = [
 ];
 
 const form = useForm({
+    enderecamento: '',
+    numero_processo: '',
+    nome_acusado: '',
+    anexo_inquerito: '',
+    anexo_denuncia: '',
+    anexo_resposta_acusacao: '',
+    anexo_recebimento_denuncia: '',
+    anexo_alegacoes_finais_mp: '',
+    dinamica_fatos: '',
+    preliminares_merito: '',
+    teses_preliminares_merito: {
+        invasao_domiciliar: false,
+        abordagem_busca_pessoal: false,
+        cerceamento_defesa: false,
+        reconhecimento_ilegal: false,
+        ausencia_fundamentacao: false,
+    },
+    merito_processual: '',
+    teses_merito_processual: {
+        insuficiencia_probatória: false,
+        indubio_pro_reo: false,
+        negativa_autoria: false,
+        perda_chance_probatória: false,
+        testemunho_ouvi_dizer: false,
+    },
     requerimentos: [
         {id: 1, value: ''}
     ],
@@ -27,6 +53,9 @@ function onSubmit() {
     form.post(route('pecas.alegacoes-finais.store'), {
         preserveScroll: true,
         onSuccess: () => {
+            // Do something
+        },
+        onError: () => {
             // Do something
         }
     });
@@ -81,22 +110,30 @@ const removeAdvogado = (index: number) => {
 
                         <div class="grid gap-4">
                             <div>
-                                <Label for="first-name">Endereçamento</Label>
-                                <Input id="first-name" class="placeholder:uppercase" autofocus
-                                       placeholder="Exemplo: AO Juiz de Direito da XXº Vara Criminal do Município XXXX Estado de XXX"/>
-                                <!--                            <InputError class="mt-2" :message="form.errors.first_name"/>-->
+                                <Label for="enderecamento">Endereçamento</Label>
+                                <Input
+                                    v-model="form.enderecamento"
+                                    id="enderecamento" class="placeholder:uppercase" autofocus
+                                    placeholder="Exemplo: AO Juiz de Direito da XXº Vara Criminal do Município XXXX Estado de XXX"/>
+                                <InputError class="mt-1" :message="form.errors.enderecamento"/>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <Label for="first-name">Número do Processo</Label>
-                                    <Input id="first-name" class="placeholder:uppercase"
-                                           placeholder="Exemplo: 0000000-00.2024.0.00.0000"/>
+                                    <Label for="numero_processo">Número do Processo</Label>
+                                    <Input
+                                        v-model="form.numero_processo"
+                                        id="numero_processo" class="placeholder:uppercase"
+                                        placeholder="Exemplo: 0000000-00.2024.0.00.0000"/>
+                                    <InputError class="mt-1" :message="form.errors.numero_processo"/>
                                 </div>
                                 <div>
-                                    <Label for="first-name">Nome do Acusado</Label>
-                                    <Input id="first-name" class="placeholder:uppercase"
-                                           placeholder="Exemplo: John Doe"/>
+                                    <Label for="nome_do_acusado">Nome do Acusado</Label>
+                                    <Input
+                                        v-model="form.nome_acusado"
+                                        id="nome_do_acusado" class="placeholder:uppercase"
+                                        placeholder="Exemplo: John Doe"/>
+                                    <InputError class="mt-1" :message="form.errors.nome_do_acusado"/>
                                 </div>
                             </div>
                         </div>
@@ -112,28 +149,43 @@ const removeAdvogado = (index: number) => {
                     </CardHeader>
                     <CardContent class="grid grid-cols-3 gap-6">
                         <div>
-                            <Label for="first-name">+ Inquerito Policial</Label>
-                            <Input id="first-name" type="file" class="placeholder:uppercase"/>
+                            <Label for="anexo_inquerito">+ Inquerito Policial</Label>
+                            <Input
+                                v-model="form.anexo_inquerito"
+                                id="anexo_inquerito" type="file" class="placeholder:uppercase"/>
+                            <InputError class="mt-1" :message="form.errors.anexo_inquerito"/>
                         </div>
 
                         <div>
-                            <Label for="first-name">+ Denúncia</Label>
-                            <Input id="first-name" type="file" class="placeholder:uppercase"/>
+                            <Label for="anexo_denuncia">+ Denúncia</Label>
+                            <Input
+                                v-model="form.anexo_denuncia"
+                                id="anexo_denuncia" type="file" class="placeholder:uppercase"/>
+                            <InputError class="mt-1" :message="form.errors.anexo_denuncia"/>
                         </div>
 
                         <div>
-                            <Label for="first-name">+ Resposta à Acusação</Label>
-                            <Input id="first-name" type="file" class="placeholder:uppercase"/>
+                            <Label for="anexo_resposta_acusacao">+ Resposta à Acusação</Label>
+                            <Input
+                                v-model="form.anexo_resposta_acusacao"
+                                id="anexo_resposta_acusacao" type="file" class="placeholder:uppercase"/>
+                            <InputError class="mt-1" :message="form.errors.anexo_resposta_acusacao"/>
                         </div>
 
                         <div>
-                            <Label for="first-name">+ Recebimento da Denúncia</Label>
-                            <Input id="first-name" type="file" class="placeholder:uppercase"/>
+                            <Label for="anexo_recebimento_denuncia">+ Recebimento da Denúncia</Label>
+                            <Input
+                                v-model="form.anexo_recebimento_denuncia"
+                                id="anexo_recebimento_denuncia" type="file" class="placeholder:uppercase"/>
+                            <InputError class="mt-1" :message="form.errors.anexo_recebimento_denuncia"/>
                         </div>
 
                         <div>
-                            <Label for="first-name">+ Alegações Finais MP</Label>
-                            <Input id="first-name" type="file" class="placeholder:uppercase"/>
+                            <Label for="anexo_alegacoes_finais_mp">+ Alegações Finais MP</Label>
+                            <Input
+                                v-model="form.anexo_alegacoes_finais_mp"
+                                id="anexo_alegacoes_finais_mp" type="file" class="placeholder:uppercase"/>
+                            <InputError class="mt-1" :message="form.errors.anexo_alegacoes_finais_mp"/>
                         </div>
                     </CardContent>
 
@@ -148,8 +200,9 @@ const removeAdvogado = (index: number) => {
 
                     <CardContent>
                         <div>
-                            <Label class="hidden" for="first-name">Dinamica dos Fatos</Label>
-                            <Textarea/>
+                            <Label class="hidden" for="dinamica_fatos">Dinamica dos Fatos</Label>
+                            <Textarea id="dinamica_fatos" v-model="form.dinamica_fatos"/>
+                            <InputError class="mt-1" :message="form.errors.dinamica_fatos"/>
                         </div>
                     </CardContent>
 
@@ -158,14 +211,16 @@ const removeAdvogado = (index: number) => {
                             Preliminares de Mérito
                         </CardTitle>
                         <CardDescription>
-                            Descreva os argumentos das nulidades de mérito, preferencialmente mencionando a página ou id dos documentos que as evidenciam.
+                            Descreva os argumentos das nulidades de mérito, preferencialmente mencionando a página ou id
+                            dos documentos que as evidenciam.
                         </CardDescription>
                     </CardHeader>
 
                     <CardContent>
                         <div>
-                            <Label class="hidden" for="first-name">Preliminares de Mérito</Label>
-                            <Textarea/>
+                            <Label class="hidden" for="preliminar_merito">Preliminares de Mérito</Label>
+                            <Textarea id="preliminar_merito" v-model="form.preliminar_merito"/>
+                            <InputError class="mt-1" :message="form.errors.preliminar_merito"/>
                         </div>
                     </CardContent>
 
@@ -174,71 +229,80 @@ const removeAdvogado = (index: number) => {
                             Selecione as teses utilizadas nas preliminares de mérito
                         </CardTitle>
                     </CardHeader>
-                    <CardContent class="grid grid-cols-5 gap-6">
-                        <div class="flex inline-flex items-center gap-2">
-                            <Checkbox id="terms1"/>
-                            <label
-                                for="terms2"
-                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
-                            >
-                                Invasão Domiciliar
-                            </label>
-                        </div>
+                    <CardContent>
+                        <div class="grid grid-cols-5 gap-6">
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="invasao_domiciliar"
+                                          v-model:checked="form.teses_preliminares_merito.invasao_domiciliar"/>
+                                <label
+                                    for="invasao_domiciliar"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Invasão Domiciliar
+                                </label>
+                            </div>
 
-                        <div class="flex inline-flex items-center gap-2">
-                            <Checkbox id="terms1"/>
-                            <label
-                                for="terms2"
-                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
-                            >
-                                Abordagem/Busca Pessoal
-                            </label>
-                        </div>
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="abordagem_busca_pessoal"
+                                          v-model:checked="form.teses_preliminares_merito.abordagem_busca_pessoal"/>
+                                <label
+                                    for="abordagem_busca_pessoal"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Abordagem/Busca Pessoal
+                                </label>
+                            </div>
 
-                        <div class="flex inline-flex items-center gap-2">
-                            <Checkbox id="terms1"/>
-                            <label
-                                for="terms2"
-                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
-                            >
-                                Cerceamento de Defesa
-                            </label>
-                        </div>
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="cerceamento_defesa"
+                                          v-model:checked="form.teses_preliminares_merito.cerceamento_defesa"/>
+                                <label
+                                    for="cerceamento_defesa"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Cerceamento de Defesa
+                                </label>
+                            </div>
 
-                        <div class="flex inline-flex items-center gap-2">
-                            <Checkbox id="terms1"/>
-                            <label
-                                for="terms2"
-                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
-                            >
-                                Reconhecimento Ilegal
-                            </label>
-                        </div>
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="reconhecimento_ilegal"
+                                          v-model:checked="form.teses_preliminares_merito.reconhecimento_ilegal"/>
+                                <label
+                                    for="reconhecimento_ilegal"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Reconhecimento Ilegal
+                                </label>
+                            </div>
 
-                        <div class="flex inline-flex items-center gap-2">
-                            <Checkbox id="terms1"/>
-                            <label
-                                for="terms2"
-                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
-                            >
-                                Ausência de Fundamentação
-                            </label>
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="ausencia_fundamentacao"
+                                          v-model:checked="form.teses_preliminares_merito.ausencia_fundamentacao"/>
+                                <label
+                                    for="ausencia_fundamentacao"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Ausência de Fundamentação
+                                </label>
+                            </div>
                         </div>
-
+                        <InputError class="mt-1" :message="form.errors.teses_preliminares_merito"/>
                     </CardContent>
                     <CardHeader class="uppercase">
                         <CardTitle class="text-sm font-medium mr-2 text-primary">
                             Mérito Processual
                         </CardTitle>
                         <CardDescription>
-                            Descreva os argumentos de mérito, preferencialmente mencionando a página ou id dos documentos que as evidenciam.
+                            Descreva os argumentos de mérito, preferencialmente mencionando a página ou id dos
+                            documentos que as evidenciam.
                         </CardDescription>
                     </CardHeader>
 
                     <CardContent>
                         <div>
-                            <Label class="hidden" for="first-name">Mérito Processual</Label>
-                            <Textarea/>
+                            <Label class="hidden" for="merito_processual">Mérito Processual</Label>
+                            <Textarea id="merito_processual" v-model="form.merito_processual"/>
+                            <InputError class="mt-1" :message="form.errors.merito_processual"/>
                         </div>
                     </CardContent>
 
@@ -247,57 +311,64 @@ const removeAdvogado = (index: number) => {
                             Selecione as teses utilizadas no mérito processual
                         </CardTitle>
                     </CardHeader>
-                    <CardContent class="grid grid-cols-5 gap-6">
-                        <div class="flex inline-flex items-center gap-2">
-                            <Checkbox id="terms1"/>
-                            <label
-                                for="terms2"
-                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
-                            >
-                                Insuficiência Probatória
-                            </label>
-                        </div>
+                    <CardContent class="">
+                        <div class="grid grid-cols-5 gap-6">
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="insuficiencia_probatória"
+                                          v-model:checked="form.teses_merito_processual.insuficiencia_probatória"/>
+                                <label
+                                    for="insuficiencia_probatória"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Insuficiência Probatória
+                                </label>
+                            </div>
 
-                        <div class="flex inline-flex items-center gap-2">
-                            <Checkbox id="terms1"/>
-                            <label
-                                for="terms2"
-                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
-                            >
-                                Indubio Pro Réo
-                            </label>
-                        </div>
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="indubio_pro_reo"
+                                          v-model:checked="form.teses_merito_processual.indubio_pro_reo"/>
+                                <label
+                                    for="indubio_pro_reo"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Indubio Pro Réo
+                                </label>
+                            </div>
 
-                        <div class="flex inline-flex items-center gap-2">
-                            <Checkbox id="terms1"/>
-                            <label
-                                for="terms2"
-                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
-                            >
-                                Negativa de Autoria
-                            </label>
-                        </div>
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="negativa_autoria"
+                                          v-model:checked="form.teses_merito_processual.negativa_autoria"/>
+                                <label
+                                    for="negativa_autoria"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Negativa de Autoria
+                                </label>
+                            </div>
 
-                        <div class="flex inline-flex items-center gap-2">
-                            <Checkbox id="terms1"/>
-                            <label
-                                for="terms2"
-                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
-                            >
-                                Perda de uma Chance Probatória
-                            </label>
-                        </div>
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="perda_chance_probatória"
+                                          v-model:checked="form.teses_merito_processual.perda_chance_probatória"/>
+                                <label
+                                    for="perda_chance_probatória"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Perda de uma Chance Probatória
+                                </label>
+                            </div>
 
-                        <div class="flex inline-flex items-center gap-2">
-                            <Checkbox id="terms1"/>
-                            <label
-                                for="terms2"
-                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
-                            >
-                                Testemunho de Ouvi Dizer
-                            </label>
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="testemunho_ouvi_dizer"
+                                          v-model:checked="form.teses_merito_processual.testemunho_ouvi_dizer"/>
+                                <label
+                                    for="testemunho_ouvi_dizer"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Testemunho de Ouvi Dizer
+                                </label>
+                            </div>
                         </div>
-
+                        <InputError class="mt-1" :message="form.errors.teses_merito_processual"/>
                     </CardContent>
 
                     <CardHeader class="uppercase">
@@ -322,6 +393,7 @@ const removeAdvogado = (index: number) => {
                                     class="text-red-500 ml-4 cursor-pointer"/>
 
                             </div>
+                            <InputError class="mt-1" :message="form.errors[`requerimentos.${index}.value`]"/>
                         </div>
                         <div>
                             <Button variant="secondary"
@@ -340,22 +412,26 @@ const removeAdvogado = (index: number) => {
                     <CardContent>
                         <div v-for="(advogado, index) in form.advogados" key="advogado.id">
                             <div class="flex items-center">
-                            <div class="grid grid-cols-2 gap-4 mb-3 w-full">
-                                <div>
-                                    <Label :for="`advogado-${advogado.nome}`">Nome do Advogado {{ index + 1 > 1 ? `(${index + 1})` : '' }}</Label>
-                                    <Input :id="`advogado-${advogado.nome}`"/>
+                                <div class="grid grid-cols-2 gap-4 mb-3 w-full">
+                                    <div>
+                                        <Label :for="`advogado-${advogado.nome}`">Nome do Advogado
+                                            {{ index + 1 > 1 ? `(${index + 1})` : '' }}</Label>
+                                        <Input :id="`advogado-${advogado.nome}`"/>
+                                        <InputError class="mt-1" :message="form.errors[`advogados.${index}.nome`]"/>
+                                    </div>
+                                    <div>
+                                        <Label :for="`advogado-${advogado.oab}`">Número da OAB
+                                            {{ index + 1 > 1 ? `(${index + 1})` : '' }}</Label>
+                                        <Input :id="`advogado-${advogado.oab}`"/>
+                                        <InputError class="mt-1" :message="form.errors[`advogados.${index}.oab`]"/>
+                                    </div>
                                 </div>
-                                <div>
-                                    <Label :for="`advogado-${advogado.oab}`">Número da OAB {{ index + 1 > 1 ? `(${index + 1})` : '' }}</Label>
-                                    <Input :id="`advogado-${advogado.oab}`"/>
-                                </div>
+                                <CircleX
+                                    v-if="index > 0"
+                                    @click="removeAdvogado(index)"
+                                    class="text-red-500 ml-4 mt-3 cursor-pointer"/>
                             </div>
-                            <CircleX
-                                v-if="index > 0"
-                                @click="removeAdvogado(index)"
-                                class="text-red-500 ml-4 mt-3 cursor-pointer"/>
-                            </div>
-                        </div>
+                            <InputError class="mt-1" :message="form.errors.advogados"/></div>
 
                         <div>
                             <Button
