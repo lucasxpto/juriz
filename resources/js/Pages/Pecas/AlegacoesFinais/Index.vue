@@ -264,7 +264,7 @@ const resetFileAnexos = (file: string) => {
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div class="grid grid-cols-5 gap-6">
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                             <div class="flex inline-flex items-center gap-2">
                                 <Checkbox id="invasao_domiciliar"
                                           v-model:checked="form.teses_preliminares_merito.invasao_domiciliar"/>
@@ -346,7 +346,7 @@ const resetFileAnexos = (file: string) => {
                         </CardTitle>
                     </CardHeader>
                     <CardContent class="">
-                        <div class="grid grid-cols-5 gap-6">
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                             <div class="flex inline-flex items-center gap-2">
                                 <Checkbox id="insuficiencia_probatória"
                                           v-model:checked="form.teses_merito_processual.insuficiencia_probatória"/>
