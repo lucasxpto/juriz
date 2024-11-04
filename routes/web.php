@@ -25,11 +25,19 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    #region
+    #region Communication
     Route::get('/comunicacoes', App\Http\Controllers\Communication\IndexController::class)->name('communication.index');
     Route::get('/comunicacao/{communication}', function () {
         return 'oi';
     })->name('communication.show');
+    #endregion
+
+    #region Peças Jurídicas
+    Route::get('/pecas-juridicas', function (){
+        return Inertia::render('Pecas/Index');
+    })->name('pecas.index');
+
+    Route::get('/pecas-juridicas/alegacoes-finais', [App\Http\Controllers\AlegacoesFinaisController::class, 'index'])->name('pecas.alegacoes-finais.index');
     #endregion
 });
 

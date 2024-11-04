@@ -1,15 +1,7 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
-import {
-    LayoutDashboard,
-    Scale,
-    Activity,
-    Brain,
-    AudioLines,
-    BotMessageSquare
-} from "lucide-vue-next";
+import {Link} from '@inertiajs/vue3';
+import {Activity, AudioLines, BotMessageSquare, Brain, LayoutDashboard, Scale} from "lucide-vue-next";
 import {Badge} from '@/shadcn/ui/badge'
-
 </script>
 
 <template>
@@ -53,13 +45,13 @@ import {Badge} from '@/shadcn/ui/badge'
                 <BotMessageSquare class="h-4 w-4"/>
                 Assistentes
             </a>
-            <a
-                href="#"
+            <Link
+                :href="route('pecas.index')"
                 class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
             >
                 <Scale class="h-4 w-4"/>
                 Peças Jurídicas
-            </a>
+            </Link>
         </nav>
     </aside>
 </template>
