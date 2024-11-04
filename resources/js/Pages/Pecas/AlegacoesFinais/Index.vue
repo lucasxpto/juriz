@@ -6,6 +6,7 @@ import {Label} from "@/shadcn/ui/label";
 import {Input} from '@/shadcn/ui/input';
 import {Textarea} from '@/shadcn/ui/textarea'
 import {Checkbox} from "@/shadcn/ui/checkbox";
+import {Button} from "@/shadcn/ui/button";
 
 const breadcrumbs = [
     {text: 'Dashboard', link: route('dashboard')},
@@ -122,7 +123,7 @@ const breadcrumbs = [
                             <Checkbox id="terms1"/>
                             <label
                                 for="terms2"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
                             >
                                 Invasão Domiciliar
                             </label>
@@ -132,7 +133,7 @@ const breadcrumbs = [
                             <Checkbox id="terms1"/>
                             <label
                                 for="terms2"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
                             >
                                 Abordagem/Busca Pessoal
                             </label>
@@ -142,7 +143,7 @@ const breadcrumbs = [
                             <Checkbox id="terms1"/>
                             <label
                                 for="terms2"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
                             >
                                 Cerceamento de Defesa
                             </label>
@@ -152,7 +153,7 @@ const breadcrumbs = [
                             <Checkbox id="terms1"/>
                             <label
                                 for="terms2"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
                             >
                                 Reconhecimento Ilegal
                             </label>
@@ -162,7 +163,7 @@ const breadcrumbs = [
                             <Checkbox id="terms1"/>
                             <label
                                 for="terms2"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
                             >
                                 Ausência de Fundamentação
                             </label>
@@ -187,7 +188,7 @@ const breadcrumbs = [
                             <Checkbox id="terms1"/>
                             <label
                                 for="terms2"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
                             >
                                 Insuficiência Probatória
                             </label>
@@ -197,7 +198,7 @@ const breadcrumbs = [
                             <Checkbox id="terms1"/>
                             <label
                                 for="terms2"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
                             >
                                 Indubio Pro Réo
                             </label>
@@ -207,7 +208,7 @@ const breadcrumbs = [
                             <Checkbox id="terms1"/>
                             <label
                                 for="terms2"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
                             >
                                 Negativa de Autoria
                             </label>
@@ -217,7 +218,7 @@ const breadcrumbs = [
                             <Checkbox id="terms1"/>
                             <label
                                 for="terms2"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
                             >
                                 Perda de uma Chance Probatória
                             </label>
@@ -227,7 +228,7 @@ const breadcrumbs = [
                             <Checkbox id="terms1"/>
                             <label
                                 for="terms2"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
                             >
                                 Testemunho de Ouvi Dizer
                             </label>
@@ -240,6 +241,9 @@ const breadcrumbs = [
                             <Label for="first-name">Dos Pedidos e Requerimentos</Label>
                             <Input id="first-name" class="mt-2"/>
                             <Input id="first-name" class="mt-2"/>
+                        </div>
+                        <div>
+                            <Button variant="secondary" class="mt-2">Adicionar mais Pedido/Requeimento</Button>
                         </div>
                     </CardContent>
 
@@ -262,6 +266,14 @@ const breadcrumbs = [
                             </div>
                         </div>
 
+                        <div>
+                            <Button variant="secondary"  class="mt-2">Adicionar Advogado</Button>
+                        </div>
+
+
+                        <div class="mt-6 w-full flex inline-flex items-center justify-end">
+                            <Button>Criar Petição</Button>
+                        </div>
 
                     </CardContent>
 
