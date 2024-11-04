@@ -23,8 +23,13 @@ const form = useForm({
     ]
 });
 
-function submit() {
-
+function onSubmit() {
+    form.post(route('pecas.alegacoes-finais.store'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            // Do something
+        }
+    });
 }
 
 const addRequerimento = () => {
@@ -63,7 +68,7 @@ const removeAdvogado = (index: number) => {
             </Card>
 
             <Card>
-                <form @submit.prevent="submit">
+                <form @submit.prevent="onSubmit">
                     <CardHeader class="uppercase flex flex-row">
                         <CardTitle class="text-sm font-medium mr-2 text-primary">
                             Qualificação
@@ -77,7 +82,7 @@ const removeAdvogado = (index: number) => {
                         <div class="grid gap-4">
                             <div>
                                 <Label for="first-name">Endereçamento</Label>
-                                <Input id="first-name" class="placeholder:uppercase" required autofocus
+                                <Input id="first-name" class="placeholder:uppercase" autofocus
                                        placeholder="Exemplo: AO Juiz de Direito da XXº Vara Criminal do Município XXXX Estado de XXX"/>
                                 <!--                            <InputError class="mt-2" :message="form.errors.first_name"/>-->
                             </div>
@@ -85,12 +90,12 @@ const removeAdvogado = (index: number) => {
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <Label for="first-name">Número do Processo</Label>
-                                    <Input id="first-name" class="placeholder:uppercase" required
+                                    <Input id="first-name" class="placeholder:uppercase"
                                            placeholder="Exemplo: 0000000-00.2024.0.00.0000"/>
                                 </div>
                                 <div>
                                     <Label for="first-name">Nome do Acusado</Label>
-                                    <Input id="first-name" class="placeholder:uppercase" required
+                                    <Input id="first-name" class="placeholder:uppercase"
                                            placeholder="Exemplo: John Doe"/>
                                 </div>
                             </div>
@@ -221,10 +226,18 @@ const removeAdvogado = (index: number) => {
                         </div>
 
                     </CardContent>
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Mérito Processual
+                        </CardTitle>
+                        <CardDescription>
+                            Descreva os argumentos de mérito, preferencialmente mencionando a página ou id dos documentos que as evidenciam.
+                        </CardDescription>
+                    </CardHeader>
 
                     <CardContent>
                         <div>
-                            <Label for="first-name">Mérito Processual</Label>
+                            <Label class="hidden" for="first-name">Mérito Processual</Label>
                             <Textarea/>
                         </div>
                     </CardContent>
@@ -330,11 +343,11 @@ const removeAdvogado = (index: number) => {
                             <div class="grid grid-cols-2 gap-4 mb-3 w-full">
                                 <div>
                                     <Label :for="`advogado-${advogado.nome}`">Nome do Advogado {{ index + 1 > 1 ? `(${index + 1})` : '' }}</Label>
-                                    <Input :id="`advogado-${advogado.nome}`" required/>
+                                    <Input :id="`advogado-${advogado.nome}`"/>
                                 </div>
                                 <div>
                                     <Label :for="`advogado-${advogado.oab}`">Número da OAB {{ index + 1 > 1 ? `(${index + 1})` : '' }}</Label>
-                                    <Input :id="`advogado-${advogado.oab}`" required/>
+                                    <Input :id="`advogado-${advogado.oab}`"/>
                                 </div>
                             </div>
                             <CircleX
@@ -354,7 +367,7 @@ const removeAdvogado = (index: number) => {
 
 
                         <div class="mt-6 w-full flex inline-flex items-center justify-end">
-                            <Button>Criar Petição</Button>
+                            <Button type="submit">Criar Petição</Button>
                         </div>
 
                     </CardContent>
