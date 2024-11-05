@@ -5,7 +5,7 @@ import {Badge} from '@/shadcn/ui/badge'
 </script>
 
 <template>
-    <aside class="fixed inset-y-0 left-0 z-10 hidden w-60 flex-col border-r bg-background sm:flex">
+    <aside class="fixed inset-y-0 left-0 z-10 hidden w-60 flex-col border-r bg-background md:flex">
         <nav class="grid items-start px-2 text-sm font-medium lg:px-4">
             <div class="flex items-center px-3 h-16 mt-1 mb-3">
                 <Link :href="route('dashboard')" class="flex items-center gap-2 font-semibold">
@@ -47,7 +47,8 @@ import {Badge} from '@/shadcn/ui/badge'
             </a>
             <Link
                 :href="route('pecas.index')"
-                class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+                :class="route().current('pecas.*') ? 'bg-muted text-primary' : 'text-muted-foreground'"
             >
                 <Scale class="h-4 w-4"/>
                 Peças Jurídicas

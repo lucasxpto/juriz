@@ -132,7 +132,7 @@ const resetFileAnexos = (file: string) => {
                                 <InputError class="mt-1" :message="form.errors.enderecamento"/>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <Label for="numero_processo">Número do Processo</Label>
                                     <Input
