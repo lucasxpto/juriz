@@ -14,16 +14,17 @@ import {
 
 import {Sheet, SheetContent, SheetTrigger} from '@/shadcn/ui/sheet'
 import {
-    LayoutDashboard,
-    Scale,
     Activity,
-    Brain,
     AudioLines,
     BotMessageSquare,
-    PanelLeft,
+    Brain,
     CircleUser,
+    LayoutDashboard,
+    PanelLeft,
+    Scale,
 } from "lucide-vue-next";
 import BreadcrumbLayout from "@/Layouts/BreadcrumbLayout.vue";
+import {Badge} from "@/shadcn/ui/badge/index.js";
 
 const props = defineProps({
     breadcrumbs: {
@@ -39,7 +40,7 @@ const props = defineProps({
         class="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <Sheet>
             <SheetTrigger as-child>
-                <Button size="icon" variant="outline" class="sm:hidden">
+                <Button size="icon" variant="outline" class="md:hidden">
                     <PanelLeft class="h-5 w-5"/>
                     <span class="sr-only">Toggle Menu</span>
                 </Button>
@@ -53,20 +54,25 @@ const props = defineProps({
                         <Brain class="h-5 w-5 transition-all group-hover:scale-110"/>
                         <span class="sr-only">Juriz</span>
                     </a>
-                    <a
-                        href="#"
-                        class="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                    <Link
+                        :href="route('dashboard')"
+                        class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+                        :class="route().current('dashboard') ? 'bg-muted text-primary' : 'text-muted-foreground'"
                     >
-                        <LayoutDashboard class="h-5 w-5"/>
+                        <LayoutDashboard class="h-4 w-4"/>
                         Dashboard
-                    </a>
-                    <a
-                        href="#"
-                        class="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                    </Link>
+                    <Link
+                        :href="route('communication.index')"
+                        class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+                        :class="route().current('communication.*') ? 'bg-muted text-primary' : 'text-muted-foreground'"
                     >
-                        <AudioLines class="h-5 w-5"/>
+                        <AudioLines class="h-4 w-4"/>
                         Comunicações
-                    </a>
+                        <Badge class="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                            6
+                        </Badge>
+                    </Link>
                     <a
                         href="#"
                         class="flex items-center gap-4 px-2.5 text-foreground"
@@ -81,13 +87,14 @@ const props = defineProps({
                         <BotMessageSquare class="h-5 w-5"/>
                         Assistentes
                     </a>
-                    <a
-                        href="#"
-                        class="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                    <Link
+                        :href="route('pecas.index')"
+                        class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+                        :class="route().current('pecas.*') ? 'bg-muted text-primary' : 'text-muted-foreground'"
                     >
-                        <Scale class="h-5 w-5"/>
+                        <Scale class="h-4 w-4"/>
                         Peças Jurídicas
-                    </a>
+                    </Link>
                 </nav>
             </SheetContent>
         </Sheet>
