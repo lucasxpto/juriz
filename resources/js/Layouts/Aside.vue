@@ -1,7 +1,6 @@
 <script setup>
 import {Link} from '@inertiajs/vue3';
 import {Activity, AudioLines, BotMessageSquare, Brain, LayoutDashboard, Scale} from "lucide-vue-next";
-import {Badge} from '@/shadcn/ui/badge'
 </script>
 
 <template>
@@ -23,13 +22,14 @@ import {Badge} from '@/shadcn/ui/badge'
             </Link>
             <Link
                 :href="route('communication.index')"
-                class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                class="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary"
+                :class="route().current('communication.*') ? 'bg-muted text-primary' : 'text-muted-foreground'"
             >
                 <AudioLines class="h-4 w-4"/>
                 Comunicações
-                <Badge class="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                    6
-                </Badge>
+<!--                <Badge class="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">-->
+<!--                    6-->
+<!--                </Badge>-->
             </Link>
             <a
                 href="#"
