@@ -161,10 +161,10 @@ const resetFileAnexos = (file: string) => {
                             Anexe os documentos necessários - PDF
                         </CardDescription>
                     </CardHeader>
-                    <CardContent class="grid grid-cols-3 gap-6">
-                        <div>
+                    <CardContent class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <div class="flex flex-col">
                             <Label for="anexo_inquerito">+ Inquerito Policial</Label>
-                            <div class="inline-flex items-center gap-2">
+                            <div class="inline-flex items-center gap-2 mt-2">
                                 <Input
                                     v-model="form.anexo_inquerito"
                                     id="anexo_inquerito" type="file" class="placeholder:uppercase"/>
@@ -174,9 +174,9 @@ const resetFileAnexos = (file: string) => {
                             <InputError class="mt-1" :message="form.errors.anexo_inquerito"/>
                         </div>
 
-                        <div>
+                        <div class="flex flex-col">
                             <Label for="anexo_denuncia">+ Denúncia</Label>
-                            <div class="inline-flex items-center gap-2">
+                            <div class="inline-flex items-center gap-2 mt-2">
                                 <Input
                                     v-model="form.anexo_denuncia"
                                     id="anexo_denuncia" type="file" class="placeholder:uppercase"/>
@@ -186,9 +186,9 @@ const resetFileAnexos = (file: string) => {
                             <InputError class="mt-1" :message="form.errors.anexo_denuncia"/>
                         </div>
 
-                        <div>
+                        <div class="flex flex-col">
                             <Label for="anexo_resposta_acusacao">+ Resposta à Acusação</Label>
-                            <div class="inline-flex items-center gap-2">
+                            <div class="inline-flex items-center gap-2 mt-2">
                                 <Input
                                     v-model="form.anexo_resposta_acusacao"
                                     id="anexo_resposta_acusacao" type="file" class="placeholder:uppercase"/>
@@ -198,9 +198,9 @@ const resetFileAnexos = (file: string) => {
                             <InputError class="mt-1" :message="form.errors.anexo_resposta_acusacao"/>
                         </div>
 
-                        <div>
+                        <div class="flex flex-col">
                             <Label for="anexo_recebimento_denuncia">+ Recebimento da Denúncia</Label>
-                            <div class="inline-flex items-center gap-2">
+                            <div class="inline-flex items-center gap-2 mt-2">
                                 <Input
                                     v-model="form.anexo_recebimento_denuncia"
                                     id="anexo_recebimento_denuncia" type="file" class="placeholder:uppercase"/>
@@ -210,9 +210,9 @@ const resetFileAnexos = (file: string) => {
                             <InputError class="mt-1" :message="form.errors.anexo_recebimento_denuncia"/>
                         </div>
 
-                        <div>
+                        <div class="flex flex-col">
                             <Label for="anexo_alegacoes_finais_mp">+ Alegações Finais MP</Label>
-                            <div class="inline-flex items-center gap-2">
+                            <div class="inline-flex items-center gap-2 mt-2">
                                 <Input
                                     v-model="form.anexo_alegacoes_finais_mp"
                                     id="anexo_alegacoes_finais_mp" type="file" class="placeholder:uppercase"/>
