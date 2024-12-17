@@ -14,7 +14,7 @@ const breadcrumbs = [
     <AuthenticatedLayout :breadcrumbs="breadcrumbs">
 
         <div class="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-            <Link :href="route('pecas.alegacoes-finais.index')">
+            <Link :href="route('final-statement.index')">
                 <Card class="hover:border-primary">
                     <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle class="text-sm font-medium">
