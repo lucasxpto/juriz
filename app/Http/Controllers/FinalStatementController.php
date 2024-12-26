@@ -10,7 +10,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 
 class FinalStatementController extends Controller
 {
-    const assistantId = 'asst_3sabpJtkr0wwdqWGwHMHHUz5';
+    const string assistantId = 'asst_3sabpJtkr0wwdqWGwHMHHUz5';
 
     public function index()
     {

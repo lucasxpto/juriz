@@ -35,10 +35,10 @@ const form = useForm({
     },
     merito_processual: '',
     teses_merito_processual: {
-        insuficiencia_probatória: false,
+        insuficiencia_probatoria: false,
         indubio_pro_reo: false,
         negativa_autoria: false,
-        perda_chance_probatória: false,
+        perda_chance_probatoria: false,
         testemunho_ouvi_dizer: false,
     },
     requerimentos: [
