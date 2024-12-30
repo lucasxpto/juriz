@@ -60,10 +60,6 @@ function onFileUploaded(field, fileId) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                        <pre>
-                            {{ form.file_ids }}
-                        </pre>
-
                         <FileUpload
                             label="+ Inquérito Policial"
                             field="anexo_inquerito"
