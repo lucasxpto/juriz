@@ -1,52 +1,51 @@
 <script setup lang="ts">
-import {ref} from "vue";
-import {useForm} from "@inertiajs/vue3";
+import axios from 'axios';
+import {ref} from 'vue';
 import {Label} from "@/shadcn/ui/label";
 import {Input} from '@/shadcn/ui/input';
 
 const props = defineProps({
-    label: String, // Label para o campo
-    field: String, // Nome do campo no formulário pai
-    onFileUploaded: Function, // Callback para enviar o file_id ao formulário pai
-});
-
-const form = useForm({
-    file: null,
+    label: String,
+    field: String,
+    onFileUploaded: Function,
 });
 
 const isUploading = ref(false);
+const progress = ref(0);
 
 function handleFileChange(event) {
     const file = event.target.files[0];
     if (!file) return;
 
-    form.file = file;
+    const formData = new FormData();
+    formData.append('file', file);
+
     isUploading.value = true;
 
-    form.post(route('upload.store'), {
-        forceFormData: true, // Necessário para enviar arquivos
+    axios.post(route('upload.store'), formData, {
         headers: {
-            'X-Inertia': false, // Informa ao backend que não será tratado como Inertia
+            'Content-Type': 'multipart/form-data',
         },
-        onSuccess: ({ props }) => {
-            if (props.file_id) {
-                // Envia o file_id para o formulário pai
-                props.onFileUploaded(props.field, props.file_id);
+        onUploadProgress: (progressEvent) => {
+            progress.value = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+        },
+    })
+        .then((response) => {
+            if (response.data.success) {
+                props.onFileUploaded(props.field, response.data.file_id);
             }
-        },
-        onError: () => {
-            console.error("Upload failed");
-        },
-        onFinish: () => {
+        })
+        .catch((error) => {
+            console.error('Upload failed:', error);
+        })
+        .finally(() => {
             isUploading.value = false;
-            form.reset('file');
-        },
-    });
+            progress.value = 0;
+        });
 }
 
 function resetFile() {
-    form.file = null;
-    props.onFileUploaded(props.field, null); // Remove o file_id no formulário pai
+    props.onFileUploaded(props.field, null);
 }
 </script>
 
@@ -55,8 +54,8 @@ function resetFile() {
         <Label :for="field" class="font-medium">{{ label }}</Label>
         <div class="inline-flex items-center gap-2 mt-2">
             <Input type="file" @change="handleFileChange" :id="field" />
-            <progress v-if="isUploading" max="100"></progress>
-            <button v-if="form.file" @click="resetFile" class="text-red-500">Remover</button>
+            <progress v-if="isUploading" :value="progress" max="100">{{ progress }}%</progress>
+            <button v-if="isUploading" @click="resetFile" class="text-red-500">Cancelar</button>
         </div>
     </div>
 </template>
