@@ -34,7 +34,20 @@ class FinalStatementController extends Controller
 
     public function store(Request $request)
     {
-        $response = $this->createAndRun($request->message);
+        // Prepara os anexos
+        $attachments = [];
+
+        foreach ($request->file_ids as $fileId) {
+            if (! $fileId) {
+                continue;
+            }
+            $attachments[] = [
+                'file_id' => $fileId,
+                'tools'   => [['type' => 'file_search']],
+            ];
+        }
+
+        $response = $this->createAndRun($request->enderecamento, $attachments);
 
         $run = $this->waitOnRun($response, $response->threadId);
 
@@ -43,6 +56,8 @@ class FinalStatementController extends Controller
         if ($run->status === 'completed') {
             $messages = OpenAI::threads()->messages()->list($run->threadId);
         }
+
+        dd($messages);
     }
 
     private function waitOnRun($run, $threadId)

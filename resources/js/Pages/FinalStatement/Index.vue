@@ -17,6 +17,7 @@ const breadcrumbs = [
 ];
 
 const form = useForm({
+    enderecamento: '',
     file_ids: {
         anexo_inquerito: '',
         anexo_denuncia: '',
@@ -28,6 +29,15 @@ const form = useForm({
 
 function onFileUploaded(field, fileId) {
     form.file_ids[field] = fileId;
+}
+
+function handleSubmit() {
+    form.post(route('final-statement.store'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            form.reset();
+        },
+    });
 }
 
 </script>
@@ -50,7 +60,48 @@ function onFileUploaded(field, fileId) {
             </Card>
 
             <Card>
-                <form>
+                <form @submit.prevent="handleSubmit">
+                    <CardHeader class="uppercase flex flex-row">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Qualificação
+                        </CardTitle>
+                        <CardDescription class="text-muted-foreground">
+                            Preencha os campos abaixo
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+
+                        <div class="grid gap-4">
+                            <div>
+                                <Label for="enderecamento">Endereçamento</Label>
+                                <Input
+                                    v-model="form.enderecamento"
+                                    id="enderecamento" class="placeholder:uppercase" autofocus
+                                    placeholder="Exemplo: AO Juiz de Direito da XXº Vara Criminal do Município XXXX Estado de XXX"/>
+                                <InputError class="mt-1" :message="form.errors.enderecamento"/>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <Label for="numero_processo">Número do Processo</Label>
+                                    <Input
+                                        v-model="form.numero_processo"
+                                        id="numero_processo" class="placeholder:uppercase"
+                                        placeholder="Exemplo: 0000000-00.2024.0.00.0000"/>
+                                    <InputError class="mt-1" :message="form.errors.numero_processo"/>
+                                </div>
+                                <div>
+                                    <Label for="nome_do_acusado">Nome do Acusado</Label>
+                                    <Input
+                                        v-model="form.nome_do_acusado"
+                                        id="nome_do_acusado" class="placeholder:uppercase"
+                                        placeholder="Exemplo: John Doe"/>
+                                    <InputError class="mt-1" :message="form.errors.nome_do_acusado"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </CardContent>
                     <CardHeader class="uppercase flex flex-row">
                         <CardTitle class="text-sm font-medium mr-2 text-primary">
                             Anexos
