@@ -38,7 +38,8 @@ Route::middleware('auth')->group(function () {
     })->name('pecas.index');
 
     Route::get('/pecas-juridicas/alegacoes-finais/', [App\Http\Controllers\FinalStatementController::class, 'index'])->name('final-statement.index');
-    Route::post('/pecas-juridicas/alegacoes-finais', [App\Http\Controllers\AlegacoesFinaisController::class, 'store'])->name('pecas.alegacoes-finais.store');
+    Route::post('/pecas-juridicas/alegacoes-finais', [App\Http\Controllers\FinalStatementController::class, 'store'])->name('final-statement.store');
+    Route::post('/upload', [App\Http\Controllers\FinalStatementController::class, 'uploadFiles'])->name('upload.store');
     //endregion
 });
 
