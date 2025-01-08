@@ -40,6 +40,7 @@ function handleSubmit() {
     });
 }
 
+
 </script>
 <template>
     <Head title="Peças Jurídicas"/>
@@ -58,6 +59,10 @@ function handleSubmit() {
                     </CardDescription>
                 </CardHeader>
             </Card>
+
+            <pre>
+        {{ form }}
+    </pre>
 
             <Card>
                 <form @submit.prevent="handleSubmit">
