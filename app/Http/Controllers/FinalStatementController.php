@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFinalStatementRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -17,20 +16,6 @@ class FinalStatementController extends Controller
     {
         return Inertia::render('FinalStatement/Index');
     }
-
-    //    public function store(StoreFinalStatementRequest $request)
-    //    {
-    //        $thread = auth()->user()->threads()->updateOrCreate(
-    //            ['id' => $request->id],
-    //            [
-    //                'thread_id'    => 'dfsfsdfsd',
-    //                'assistant_id' => self::assistantId,
-    //                'last_message' => $request->message,
-    //            ]
-    //        );
-    //
-    //        return to_route('final-statements.index', ['id' => $thread->id]);
-    //    }
 
     public function store(Request $request)
     {
@@ -57,7 +42,11 @@ class FinalStatementController extends Controller
             $messages = OpenAI::threads()->messages()->list($run->threadId);
         }
 
-        dd($messages);
+        dd($messages->data[0]->content[0]->text->value);
+
+        return Inertia::render('FinalStatement/Index', [
+            'messages' => $messages,
+        ]);
     }
 
     private function waitOnRun($run, $threadId)
