@@ -60,10 +60,6 @@ function handleSubmit() {
                 </CardHeader>
             </Card>
 
-            <pre>
-        {{ form }}
-    </pre>
-
             <Card>
                 <form @submit.prevent="handleSubmit">
                     <CardHeader class="uppercase flex flex-row">

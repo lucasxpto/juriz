@@ -17,6 +17,11 @@ class FinalStatementController extends Controller
         return Inertia::render('FinalStatement/Index');
     }
 
+    public function show()
+    {
+        return Inertia::render('FinalStatement/Show');
+    }
+
     public function store(Request $request)
     {
         // Prepara os anexos
@@ -42,10 +47,10 @@ class FinalStatementController extends Controller
             $messages = OpenAI::threads()->messages()->list($run->threadId);
         }
 
-        dd($messages->data[0]->content[0]->text->value);
+        $document = $messages->data[0]->content[0]->text->value;
 
-        return Inertia::render('FinalStatement/Index', [
-            'messages' => $messages,
+        return Inertia::render('FinalStatement/Show', [
+            'document' => $document,
         ]);
     }
 
