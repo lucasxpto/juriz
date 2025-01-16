@@ -72,8 +72,6 @@ npm run dev
 
 Acesse o sistema em **http://localhost:8000**.
 
-## 📜 Licença
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
 
