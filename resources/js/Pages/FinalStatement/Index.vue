@@ -18,6 +18,8 @@ const breadcrumbs = [
 
 const form = useForm({
     enderecamento: '',
+    numero_processo: '',
+    nome_do_acusado: '',
     file_ids: {
         anexo_inquerito: '',
         anexo_denuncia: '',
@@ -25,6 +27,29 @@ const form = useForm({
         anexo_recebimento_denuncia: '',
         anexo_alegacoes_finais_mp: '',
     },
+    dinamica_fatos: '',
+    preliminar_merito: '',
+    teses_preliminares_merito: {
+        invasao_domiciliar: false,
+        abordagem_busca_pessoal: false,
+        cerceamento_defesa: false,
+        reconhecimento_ilegal: false,
+        ausencia_fundamentacao: false,
+    },
+    merito_processual: '',
+    teses_merito_processual: {
+        insuficiencia_probatoria: false,
+        indubio_pro_reo: false,
+        negativa_autoria: false,
+        perda_chance_probatoria: false,
+        testemunho_ouvi_dizer: false,
+    },
+    requerimentos: [
+        {id: 1, value: ''}
+    ],
+    advogados: [
+        {id: 1, nome: '', oab: ''}
+    ]
 });
 
 function onFileUploaded(field, fileId) {
@@ -38,6 +63,36 @@ function handleSubmit() {
             form.reset();
         },
     });
+}
+
+const addRequerimento = () => {
+    form.requerimentos.push({id: form.requerimentos.length + 1, value: ''});
+};
+
+const addAdvogado = () => {
+    form.advogados.push({id: form.advogados.length + 1, nome: '', oab: ''});
+};
+
+const removeRequerimento = (index: number) => {
+    form.requerimentos.splice(index, 1);
+};
+
+const removeAdvogado = (index: number) => {
+    form.advogados.splice(index, 1);
+};
+
+const resetFileAnexos = (file: string) => {
+    if (file === 'anexo_inquerito') {
+        form.file_ids.anexo_inquerito = '';
+    } else if (file === 'anexo_denuncia') {
+        form.file_ids.anexo_denuncia = '';
+    } else if (file === 'anexo_resposta_acusacao') {
+        form.file_ids.anexo_resposta_acusacao = '';
+    } else if (file === 'anexo_recebimento_denuncia') {
+        form.file_ids.anexo_recebimento_denuncia = '';
+    } else if (file === 'anexo_alegacoes_finais_mp') {
+        form.file_ids.anexo_alegacoes_finais_mp = '';
+    }
 }
 
 
@@ -139,10 +194,264 @@ function handleSubmit() {
                         />
                     </CardContent>
 
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Dinamica dos Fatos
+                        </CardTitle>
+                        <CardDescription>
+                            Descreva a dinâmica dos fatos até a presente fase processual.
+                        </CardDescription>
+                    </CardHeader>
+
                     <CardContent>
-                        <div class="mt-6 w-full inline-flex items-center justify-end">
+                        <div>
+                            <Label class="hidden" for="dinamica_fatos">Dinamica dos Fatos</Label>
+                            <Textarea id="dinamica_fatos" v-model="form.dinamica_fatos"/>
+                            <InputError class="mt-1" :message="form.errors.dinamica_fatos"/>
+                        </div>
+                    </CardContent>
+
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Preliminares de Mérito
+                        </CardTitle>
+                        <CardDescription>
+                            Descreva os argumentos das nulidades de mérito, preferencialmente mencionando a página ou id
+                            dos documentos que as evidenciam.
+                        </CardDescription>
+                    </CardHeader>
+
+                    <CardContent>
+                        <div>
+                            <Label class="hidden" for="preliminar_merito">Preliminares de Mérito</Label>
+                            <Textarea id="preliminar_merito" v-model="form.preliminar_merito"/>
+                            <InputError class="mt-1" :message="form.errors.preliminar_merito"/>
+                        </div>
+                    </CardContent>
+
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Selecione as teses utilizadas nas preliminares de mérito
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="invasao_domiciliar"
+                                          v-model:checked="form.teses_preliminares_merito.invasao_domiciliar"/>
+                                <label
+                                    for="invasao_domiciliar"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Invasão Domiciliar
+                                </label>
+                            </div>
+
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="abordagem_busca_pessoal"
+                                          v-model:checked="form.teses_preliminares_merito.abordagem_busca_pessoal"/>
+                                <label
+                                    for="abordagem_busca_pessoal"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Abordagem/Busca Pessoal
+                                </label>
+                            </div>
+
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="cerceamento_defesa"
+                                          v-model:checked="form.teses_preliminares_merito.cerceamento_defesa"/>
+                                <label
+                                    for="cerceamento_defesa"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Cerceamento de Defesa
+                                </label>
+                            </div>
+
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="reconhecimento_ilegal"
+                                          v-model:checked="form.teses_preliminares_merito.reconhecimento_ilegal"/>
+                                <label
+                                    for="reconhecimento_ilegal"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Reconhecimento Ilegal
+                                </label>
+                            </div>
+
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="ausencia_fundamentacao"
+                                          v-model:checked="form.teses_preliminares_merito.ausencia_fundamentacao"/>
+                                <label
+                                    for="ausencia_fundamentacao"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Ausência de Fundamentação
+                                </label>
+                            </div>
+                        </div>
+                        <InputError class="mt-1" :message="form.errors.teses_preliminares_merito"/>
+                    </CardContent>
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Mérito Processual
+                        </CardTitle>
+                        <CardDescription>
+                            Descreva os argumentos de mérito, preferencialmente mencionando a página ou id dos
+                            documentos que as evidenciam.
+                        </CardDescription>
+                    </CardHeader>
+
+                    <CardContent>
+                        <div>
+                            <Label class="hidden" for="merito_processual">Mérito Processual</Label>
+                            <Textarea id="merito_processual" v-model="form.merito_processual"/>
+                            <InputError class="mt-1" :message="form.errors.merito_processual"/>
+                        </div>
+                    </CardContent>
+
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Selecione as teses utilizadas no mérito processual
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent class="">
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="insuficiencia_probatória"
+                                          v-model:checked="form.teses_merito_processual.insuficiencia_probatoria"/>
+                                <label
+                                    for="insuficiencia_probatória"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Insuficiência Probatória
+                                </label>
+                            </div>
+
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="indubio_pro_reo"
+                                          v-model:checked="form.teses_merito_processual.indubio_pro_reo"/>
+                                <label
+                                    for="indubio_pro_reo"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Indubio Pro Réo
+                                </label>
+                            </div>
+
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="negativa_autoria"
+                                          v-model:checked="form.teses_merito_processual.negativa_autoria"/>
+                                <label
+                                    for="negativa_autoria"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Negativa de Autoria
+                                </label>
+                            </div>
+
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="perda_chance_probatória"
+                                          v-model:checked="form.teses_merito_processual.perda_chance_probatoria"/>
+                                <label
+                                    for="perda_chance_probatória"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Perda de uma Chance Probatória
+                                </label>
+                            </div>
+
+                            <div class="flex inline-flex items-center gap-2">
+                                <Checkbox id="testemunho_ouvi_dizer"
+                                          v-model:checked="form.teses_merito_processual.testemunho_ouvi_dizer"/>
+                                <label
+                                    for="testemunho_ouvi_dizer"
+                                    class="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 uppercase"
+                                >
+                                    Testemunho de Ouvi Dizer
+                                </label>
+                            </div>
+                        </div>
+                        <InputError class="mt-1" :message="form.errors.teses_merito_processual"/>
+                    </CardContent>
+
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Dos Pedidos e Requerimentos
+                        </CardTitle>
+                    </CardHeader>
+
+                    <CardContent>
+                        <div v-for="(requerimento, index) in form.requerimentos" :key="requerimento.id" class="mb-3">
+                            <Label :for="`requerimento-${requerimento.id}`">
+                                Pedido/Requerimento {{ index + 1 > 1 ? `(${index + 1})` : '' }}
+                            </Label>
+                            <div class="flex items-center">
+                                <Input id="`requerimento-${requerimento.id}`"
+                                       v-model="requerimento.value"
+                                       class="mt-1"/>
+
+                                <CircleX
+                                    v-if="index > 0"
+                                    @click="removeRequerimento(index)"
+                                    class="text-red-500 ml-4 cursor-pointer"/>
+
+                            </div>
+                            <InputError class="mt-1" :message="form.errors[`requerimentos.${index}.value`]"/>
+                        </div>
+                        <div>
+                            <Button variant="secondary"
+                                    type="button"
+                                    @click="addRequerimento"
+                                    class="mt-2">+ Pedido/Requeimento
+                            </Button>
+                        </div>
+                    </CardContent>
+
+                    <CardHeader class="uppercase">
+                        <CardTitle class="text-sm font-medium mr-2 text-primary">
+                            Dados do Advogado
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div v-for="(advogado, index) in form.advogados" key="advogado.id">
+                            <div class="flex items-center">
+                                <div class="grid grid-cols-2 gap-4 mb-3 w-full">
+                                    <div>
+                                        <Label :for="`advogado-${advogado.nome}`">Nome do Advogado
+                                            {{ index + 1 > 1 ? `(${index + 1})` : '' }}</Label>
+                                        <Input :id="`advogado-${advogado.nome}`" v-model="advogado.nome"/>
+                                        <InputError class="mt-1" :message="form.errors[`advogados.${index}.nome`]"/>
+                                    </div>
+                                    <div>
+                                        <Label :for="`advogado-${advogado.oab}`">Número da OAB
+                                            {{ index + 1 > 1 ? `(${index + 1})` : '' }}</Label>
+                                        <Input :id="`advogado-${advogado.oab}`" v-model="advogado.oab"/>
+                                        <InputError class="mt-1" :message="form.errors[`advogados.${index}.oab`]"/>
+                                    </div>
+                                </div>
+                                <CircleX
+                                    v-if="index > 0"
+                                    @click="removeAdvogado(index)"
+                                    class="text-red-500 ml-4 mt-3 cursor-pointer"/>
+                            </div>
+                            <InputError class="mt-1" :message="form.errors.advogados"/>
+                        </div>
+
+                        <div>
+                            <Button
+                                @click="addAdvogado"
+                                type="button"
+                                variant="secondary" class="mt-2">+ Advogado
+                            </Button>
+                        </div>
+
+
+                        <div class="mt-6 w-full flex inline-flex items-center justify-end">
                             <Button type="submit">Criar Petição</Button>
                         </div>
+
                     </CardContent>
 
                 </form>

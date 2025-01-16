@@ -2,12 +2,23 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {Head, useForm} from "@inertiajs/vue3";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/shadcn/ui/card';
-import {Label} from "@/shadcn/ui/label";
-import {Input} from '@/shadcn/ui/input';
-import {Textarea} from '@/shadcn/ui/textarea'
-import {Button} from "@/shadcn/ui/button";
-import InputError from "@/Components/InputError.vue";
-import FileUpload from "@/Pages/FinalStatement/FileUpload.vue";
+import {marked} from "marked";
+import {computed} from "vue";
+
+const props = defineProps({
+    document: String
+});
+
+
+marked.setOptions({
+    breaks: true,
+    gfm: true,
+});
+
+const formattedDocument = computed(() => {
+    if (!props.document) return '';
+    return marked(props.document);
+});
 
 const breadcrumbs = [
     {text: 'Dashboard', link: route('dashboard')},
@@ -35,7 +46,9 @@ const breadcrumbs = [
             </Card>
 
             <Card>
-                
+                <CardContent>
+                    <div class="pt-4 prose prose-sm max-w-none dark:prose-invert" v-html="formattedDocument"></div>
+                </CardContent>
             </Card>
 
         </div>
