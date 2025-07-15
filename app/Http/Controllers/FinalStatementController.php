@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFinalStatementRequest;
 use Inertia\Inertia;
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Http\Request;
 
 class FinalStatementController extends Controller
 {
@@ -32,13 +33,15 @@ class FinalStatementController extends Controller
 
         $run = $this->waitOnRun($response, $response->threadId);
 
-        $messages = [];
-
         if ($run->status === 'completed') {
             $messages = OpenAI::threads()->messages()->list($run->threadId);
+            $document = $messages->data[0]->content[0]->text->value;
+        } else {
+            $document = 'Erro: O processamento não foi concluído. Status: ' . $run->status;
+            if ($run->lastError) {
+                $document .= ' Erro: ' . $run->lastError->message;
+            }
         }
-
-        $document = $messages->data[0]->content[0]->text->value;
 
         return Inertia::render('FinalStatement/Show', [
             'document' => $document,
